@@ -1,0 +1,67 @@
+name: Android Build (50Car)
+
+on:
+  push:
+    paths:
+      - '50car-app/**'
+      - '.github/workflows/android-build.yml'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK 36 (Android 16)
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Setup Gradle 8.13
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Optional release keystore (from secrets.KEYSTORE_BASE64 / KEYSTORE_PASSWORD / KEY_PASSWORD)
+        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        working-directory: 50car-app
+        run: |
+          mkdir -p keystore
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > keystore/50car-release.jks
+          cat > signing.properties <<EOF
+          storeFile=keystore/50car-release.jks
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=50car
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          EOF
+
+      - name: Build Debug APK
+        working-directory: 50car-app
+        run: gradle assembleDebug --stacktrace --no-daemon
+
+      - name: Build Release APK
+        working-directory: 50car-app
+        run: gradle assembleRelease --stacktrace --no-daemon || echo "release build skipped/failed"
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: 50car-debug-apk
+          path: 50car-app/app/build/outputs/apk/debug/*.apk
+          retention-days: 30
+
+      - name: Upload Release APK(s)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 50car-release-apk
+          path: 50car-app/app/build/outputs/apk/release/*.apk
+          retention-days: 30
