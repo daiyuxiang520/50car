@@ -1,0 +1,3486 @@
+
+==========================================================================================
+== Lcom/wuling/app/MainActivity; 父:Lcom/wuling/app/Z0;
+==========================================================================================
+
+---- <clinit>()V
+
+    static MainActivity()
+    {
+        com.wuling.app.MainActivity.B = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default(Boolean.FALSE, 0, 2, 0);
+        com.wuling.app.MainActivity.C = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default("toggle", 0, 2, 0);
+        com.wuling.app.MainActivity.D = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default(0, 0, 2, 0);
+        com.wuling.app.MainActivity.E = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default(0, 0, 2, 0);
+        com.wuling.app.MainActivity.F = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default(0, 0, 2, 0);
+        com.wuling.app.MainActivity.G = androidx.compose.runtime.SnapshotStateKt.mutableStateOf$default(0, 0, 2, 0);
+        return;
+    }
+
+
+---- <init>()V
+
+    public MainActivity()
+    {
+        this.A = this.h(new g.b(2), new A2.a(this, 4));
+        return;
+    }
+
+
+---- j(Landroid/content/Intent;)V
+
+    public final void j(android.content.Intent p15)
+    {
+        android.nfc.tech.NdefFormatable v2_12 = "";
+        int v4 = 0;
+        if (((Boolean) com.wuling.app.MainActivity.B.getValue()).booleanValue()) {
+            String v1_1;
+            if (p15 == null) {
+                v1_1 = 0;
+            } else {
+                v1_1 = ((android.nfc.Tag) p15.getParcelableExtra("android.nfc.extra.TAG"));
+            }
+            if (v1_1 != null) {
+                int v5_10;
+                android.nfc.tech.NdefFormatable v2_11;
+                int v5_14 = v1_1.getId();
+                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v5_14, "getId(...)");
+                androidx.compose.runtime.MutableState v15_1 = kotlin.collections.ArraysKt.z(v5_14, ":", 0, 0, 0, new W.a(12), 30);
+                String v3_2 = ((String) com.wuling.app.MainActivity.C.getValue());
+                int v5_2 = ((String) com.wuling.app.MainActivity.D.getValue());
+                if (!kotlin.jvm.internal.Intrinsics.areEqual(v3_2, "erase")) {
+                    android.nfc.tech.NdefFormatable v2_2 = ((Integer) com.wuling.app.MainActivity.E.getValue());
+                    kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_1, "tag");
+                    kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v3_2, "action");
+                    android.nfc.tech.Ndef v6_4 = new StringBuilder("action:");
+                    v6_4.append(v3_2);
+                    String v8_1 = kotlin.collections.CollectionsKt.mutableListOf(new String[] {v6_4.toString()}));
+                    if ((v5_2 != 0) && (v5_2.length() != 0)) {
+                        v8_1.add("vin:".concat(v5_2));
+                    }
+                    if (v2_2 != null) {
+                        int v5_5 = new StringBuilder("temperature:");
+                        v5_5.append(v2_2);
+                        v8_1.add(v5_5.toString());
+                    }
+                    android.nfc.tech.NdefFormatable v2_5 = kotlin.collections.CollectionsKt.r(v8_1, ";", 0, 0, 0, 62).getBytes(kotlin.text.Charsets.UTF_8);
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v2_5, "getBytes(...)");
+                    android.nfc.tech.NdefFormatable v2_6 = android.nfc.NdefRecord.createMime("application/vnd.com.wuling.app.nfc", v2_5);
+                    v5_10 = android.nfc.NdefRecord.createApplicationRecord("com.wuling.app");
+                    android.nfc.tech.Ndef v6_11 = new android.nfc.NdefMessage(new android.nfc.NdefRecord[] {v2_6, v5_10}));
+                    android.nfc.tech.NdefFormatable v2_8 = android.nfc.tech.Ndef.get(v1_1);
+                    if (v2_8 == null) {
+                        android.nfc.tech.NdefFormatable v2_9 = android.nfc.tech.NdefFormatable.get(v1_1);
+                        if (v2_9 == null) {
+                            v2_11 = 0;
+                        } else {
+                            v2_9.connect();
+                            v2_9.format(v6_11);
+                            v2_9.close();
+                            v2_11 = 1;
+                        }
+                    } else {
+                        v2_8.connect();
+                        v5_10 = v2_8.isWritable();
+                        if (v5_10 != 0) {
+                            v5_10 = v2_8.getMaxSize();
+                            if (v6_11.toByteArray().length <= v5_10) {
+                                v2_8.writeNdefMessage(v6_11);
+                                v2_8.close();
+                            } else {
+                                v2_8.close();
+                            }
+                        } else {
+                            v2_8.close();
+                        }
+                    }
+                } else {
+                    kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_1, "tag");
+                    v5_10 = android.nfc.tech.Ndef.get(v1_1);
+                    if (v5_10 == 0) {
+                    } else {
+                        v5_10.connect();
+                        if (v5_10.isWritable()) {
+                            String v8_4 = new android.nfc.NdefRecord[0];
+                            v5_10.writeNdefMessage(new android.nfc.NdefMessage(android.nfc.NdefRecord.createTextRecord("en", ""), v8_4));
+                            v5_10.close();
+                        } else {
+                            v5_10.close();
+                        }
+                    }
+                }
+                if (v2_11 != null) {
+                    kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_1, "tag");
+                    int v5_12 = new java.util.LinkedHashMap();
+                    android.nfc.tech.Ndef v6_16 = v1_1.getId();
+                    kotlin.jvm.internal.Intrinsics.checkNotNull(v6_16);
+                    v5_12.put("ID", kotlin.collections.ArraysKt.z(v6_16, ":", 0, 0, 0, new N3.h(13), 30));
+                    String v8_6 = v1_1.getTechList();
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v8_6, "getTechList(...)");
+                    v5_12.put("\u6280\u672f\u7c7b\u578b", kotlin.collections.ArraysKt.B(v8_6, ", ", 0, 0, new N3.h(14), 30));
+                    android.nfc.tech.Ndef v6_21 = android.nfc.tech.Ndef.get(v1_1);
+                    if (v6_21 == null) {
+                        if (android.nfc.tech.NdefFormatable.get(v1_1) == null) {
+                            v5_12.put("\u7c7b\u578b", "\u4e0d\u652f\u6301 NDEF");
+                        } else {
+                            v5_12.put("\u7c7b\u578b", "NdefFormatable (\u53ef\u683c\u5f0f\u5316)");
+                        }
+                    } else {
+                        String v8_11;
+                        v6_21.connect();
+                        String v8_7 = v6_21.getMaxSize();
+                        String v9_4 = new StringBuilder();
+                        v9_4.append(v8_7);
+                        v9_4.append(" \u5b57\u8282");
+                        v5_12.put("\u6700\u5927\u5bb9\u91cf", v9_4.toString());
+                        if (!v6_21.isWritable()) {
+                            v8_11 = "\u5426";
+                        } else {
+                            v8_11 = "\u662f";
+                        }
+                        v5_12.put("\u53ef\u5199", v8_11);
+                        v5_12.put("\u7c7b\u578b", "NDEF");
+                        String v1_8 = v6_21.getNdefMessage();
+                        if (v1_8 == null) {
+                            v5_12.put("\u5185\u5bb9", "\u7a7a");
+                        } else {
+                            v5_12.put("\u8bb0\u5f55\u6570", String.valueOf(v1_8.getRecords().length));
+                            String v1_10 = v1_8.getRecords();
+                            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v1_10, "getRecords(...)");
+                            int v7_8 = v1_10.length;
+                            while (v4 < v7_8) {
+                                String v8_15 = v1_10[v4];
+                                kotlin.jvm.internal.Intrinsics.checkNotNull(v8_15);
+                                String v8_16 = W1.f.g0(v8_15);
+                                v4++;
+                                String v9_6 = new StringBuilder();
+                                v9_6.append("\u8bb0\u5f55");
+                                v9_6.append(v4);
+                                v5_12.put(v9_6.toString(), v8_16);
+                            }
+                        }
+                        v6_21.close();
+                    }
+                    com.wuling.app.MainActivity.G.setValue(v5_12);
+                }
+                com.wuling.app.MainActivity.F.setValue(new com.wuling.app.r1(v3_2, v15_1, v2_11));
+                return;
+            }
+        }
+        androidx.compose.runtime.MutableState v15_2 = W1.f.f0(p15);
+        if (v15_2 != null) {
+            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "context");
+            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v15_2, "tagData");
+            m4.G.l(m4.D.a(kotlin.coroutines.CoroutineContext$Element$DefaultImpls.plus(m4.G.c(), t4.d.b)), 0, 0, new S3.b(this, v15_2, 0), 3);
+            String v0_15 = v15_2.a;
+            switch (v0_15.hashCode()) {
+                case -1515173395:
+                    if (v0_15.equals("ignition")) {
+                        v0_15 = "\u8fdc\u7a0b\u542f\u52a8";
+                    } else {
+                    }
+                case -868304044:
+                    if (v0_15.equals("toggle")) {
+                        v0_15 = "\u5207\u6362";
+                    } else {
+                    }
+                    break;
+                case -840442044:
+                    if (v0_15.equals("unlock")) {
+                        v0_15 = "\u89e3\u9501";
+                    } else {
+                    }
+                    break;
+                case -645744842:
+                    if (v0_15.equals("toggle_lock")) {
+                        v0_15 = "\u89e3\u9501/\u5173\u9501\u5207\u6362";
+                    } else {
+                    }
+                    break;
+                case 3327275:
+                    if (v0_15.equals("lock")) {
+                        v0_15 = "\u5173\u9501";
+                    } else {
+                    }
+                    break;
+                default:
+            }
+            androidx.compose.runtime.MutableState v15_4 = v15_2.b;
+            if (v15_4 != null) {
+                androidx.compose.runtime.MutableState v15_6 = B1.b.o(" (VIN: ", kotlin.text.StringsKt.takeLast(v15_4, 6), ")");
+                if (v15_6 != null) {
+                    v2_12 = v15_6;
+                }
+            }
+            androidx.compose.runtime.MutableState v15_8 = new StringBuilder("NFC: ");
+            v15_8.append(v0_15);
+            v15_8.append(v2_12);
+            android.widget.Toast.makeText(this, v15_8.toString(), 0).show();
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+---- onActivityResult(I I Landroid/content/Intent;)V
+
+    public final void onActivityResult(int p17, int p18, android.content.Intent p19)
+    {
+        super.onActivityResult(p17, p18, p19);
+        N3.r v3_1 = N3.s.e;
+        if (v3_1 != null) {
+            String v7_0;
+            int v4_0 = kotlin.collections.unsigned.a.t("onActivityResultData() reqcode = ", p17, p18, ", resultcode = ", ", data = null ? ");
+            if (p19 != null) {
+                v7_0 = 0;
+            } else {
+                v7_0 = 1;
+            }
+            v4_0.append(v7_0);
+            v4_0.append(", listener = null ? ");
+            N3.r v3_0 = v3_1.d;
+            v4_0.append(0);
+            H3.a.q("openSDK_LOG.Tencent", v4_0.toString());
+            L3.d.r("onActivityResultData", new Object[] {"requestCode", Integer.valueOf(p17), "resultCode", Integer.valueOf(p18)}));
+            int v4_4 = L3.d.A();
+            v4_4.getClass();
+            String v10_5 = new StringBuilder("onActivityResult req=");
+            v10_5.append(p17);
+            v10_5.append(" res=");
+            v10_5.append(p18);
+            H3.a.q("openSDK_LOG.UIListenerManager", v10_5.toString());
+            int v4_5 = v4_4.F(p17);
+            if (v4_5 == 0) {
+                if (p17 != 11101) {
+                    if (p17 != 11105) {
+                        if (p17 == 11106) {
+                            H3.a.l("openSDK_LOG.UIListenerManager", "Social Api \u7684H5\u63a5\u53e3\u56de\u8c03\u9700\u8981\u4f7f\u7528param\u6765\u91cd\u65b0\u6784\u5efa\uff0c\u6682\u65f6\u65e0\u6cd5\u63d0\u4f9b\uff0c\u5148\u8bb0\u5f55\u4e0b\u6765\u8fd9\u79cd\u60c5\u51b5\u662f\u5426\u5b58\u5728");
+                        }
+                    } else {
+                        H3.a.l("openSDK_LOG.UIListenerManager", "Social Api \u7684\u63a5\u53e3\u56de\u8c03\u9700\u8981\u4f7f\u7528param\u6765\u91cd\u65b0\u6784\u5efa\uff0c\u6682\u65f6\u65e0\u6cd5\u63d0\u4f9b\uff0c\u5148\u8bb0\u5f55\u4e0b\u6765\u8fd9\u79cd\u60c5\u51b5\u662f\u5426\u5b58\u5728");
+                    }
+                } else {
+                    H3.a.l("openSDK_LOG.UIListenerManager", "\u767b\u5f55\u7684\u63a5\u53e3\u56de\u8c03\u4e0d\u80fd\u91cd\u65b0\u6784\u5efa\uff0c\u6682\u65f6\u65e0\u6cd5\u63d0\u4f9b\uff0c\u5148\u8bb0\u5f55\u4e0b\u6765\u8fd9\u79cd\u60c5\u51b5\u662f\u5426\u5b58\u5728");
+                }
+                v4_5 = v3_0;
+            }
+            if (p18 != -1) {
+                v4_5.onCancel();
+            } else {
+                if (p19 != null) {
+                    A4.j v1_32 = p19.getStringExtra("key_action");
+                    if (!"action_login".equals(v1_32)) {
+                        if ((!"action_share".equals(v1_32)) && ((!"action_request_avatar".equals(v1_32)) && ((!"action_request_dynamic_avatar".equals(v1_32)) && ((!"action_request_set_emotion".equals(v1_32)) && (!"guildOpen".equals(v1_32)))))) {
+                            if (!"action_common_channel".equals(v1_32)) {
+                                org.json.JSONObject v0_1 = p19.getIntExtra("key_error_code", 0);
+                                if (v0_1 != null) {
+                                    v4_5.a(new A4.j(v0_1, p19.getStringExtra("key_error_msg"), p19.getStringExtra("key_error_detail")));
+                                } else {
+                                    org.json.JSONObject v0_2 = p19.getStringExtra("key_response");
+                                    if (v0_2 == null) {
+                                        v4_5.b(new org.json.JSONObject());
+                                    } else {
+                                        try {
+                                            v4_5.b(I3.d.q(v0_2));
+                                        } catch (org.json.JSONException) {
+                                            v4_5.a(new A4.j(-4, "\u670d\u52a1\u5668\u8fd4\u56de\u6570\u636e\u683c\u5f0f\u6709\u8bef!", v0_2));
+                                        }
+                                    }
+                                }
+                            } else {
+                                org.json.JSONObject v5_1 = p19.getIntExtra("key_error_code", 0);
+                                if (v5_1 != null) {
+                                    v4_5.a(new A4.j(v5_1, p19.getStringExtra("key_error_msg"), p19.getStringExtra("key_error_detail")));
+                                } else {
+                                    org.json.JSONObject v0_6 = p19.getStringExtra("response");
+                                    if (v0_6 == null) {
+                                        v4_5.b(new org.json.JSONObject());
+                                    } else {
+                                        try {
+                                            A4.j v1_9 = p19.getStringExtra("message");
+                                            org.json.JSONObject v5_2 = I3.d.q(v0_6);
+                                            v5_2.put("message", v1_9);
+                                            v4_5.b(v5_2);
+                                        } catch (org.json.JSONException) {
+                                            v4_5.a(new A4.j(-4, "\u670d\u52a1\u5668\u8fd4\u56de\u6570\u636e\u683c\u5f0f\u6709\u8bef!", v0_6));
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            A4.j v1_13 = p19.getStringExtra("result");
+                            org.json.JSONObject v5_3 = p19.getStringExtra("response");
+                            if (!"cancel".equals(v1_13)) {
+                                if (!"error".equals(v1_13)) {
+                                    if ("complete".equals(v1_13)) {
+                                        A4.j v1_14;
+                                        if (v5_3 != null) {
+                                            v1_14 = v5_3;
+                                        } else {
+                                            v1_14 = "{\"ret\": 0}";
+                                        }
+                                        v4_5.b(new org.json.JSONObject(v1_14));
+                                    }
+                                } else {
+                                    v4_5.a(new A4.j(-6, "unknown error", kotlin.collections.unsigned.a.p(v5_3, "")));
+                                }
+                            } else {
+                                v4_5.onCancel();
+                            }
+                        }
+                    } else {
+                        if (!p19.getBooleanExtra("key_auth_ignore_on_activity_result", 0)) {
+                            org.json.JSONObject v0_24 = p19.getIntExtra("key_error_code", 0);
+                            if (v0_24 == null) {
+                                A4.j v1_19 = p19.getStringExtra("key_response");
+                                if (v1_19 != null) {
+                                    try {
+                                        v4_5.b(I3.d.q(v1_19));
+                                    } catch (org.json.JSONObject v0_26) {
+                                        v4_5.a(new A4.j(-4, "\u670d\u52a1\u5668\u8fd4\u56de\u6570\u636e\u683c\u5f0f\u6709\u8bef!", v1_19));
+                                        H3.a.m("openSDK_LOG.UIListenerManager", "OpenUi, onActivityResult, json error", v0_26);
+                                    }
+                                } else {
+                                    H3.a.k("openSDK_LOG.UIListenerManager", "OpenUi, onActivityResult, onComplete");
+                                    v4_5.a(new A4.j(-4, "\u670d\u52a1\u5668\u8fd4\u56de\u6570\u636e\u683c\u5f0f\u6709\u8bef!", "response is null"));
+                                }
+                            } else {
+                                A4.j v1_23 = new StringBuilder("OpenUi, onActivityResult, onError = ");
+                                v1_23.append(v0_24);
+                                H3.a.l("openSDK_LOG.UIListenerManager", v1_23.toString());
+                                v4_5.a(new A4.j(v0_24, p19.getStringExtra("key_error_msg"), p19.getStringExtra("key_error_detail")));
+                            }
+                        } else {
+                            H3.a.q("openSDK_LOG.UIListenerManager", "OpenUi, onActivityResult, ignoreOnActivityResult");
+                        }
+                    }
+                } else {
+                    v4_5.a(new A4.j(-6, "onActivityResult intent data is null.", "onActivityResult intent data is null."));
+                }
+            }
+            org.json.JSONObject v5_10;
+            org.json.JSONObject v0_32 = new StringBuilder("handleResultData() data = null ? ");
+            if (p19 != null) {
+                v5_10 = 0;
+            } else {
+                v5_10 = 1;
+            }
+            v0_32.append(v5_10);
+            v0_32.append(", listener = null ? ");
+            v0_32.append(0);
+            H3.a.q("openSDK_LOG.Tencent", v0_32.toString());
+            A4.j v1_30 = new Object[0];
+            L3.d.r("handleResultData", v1_30);
+            L3.d.A().getClass();
+            L3.d.H(p19, v3_0);
+        }
+        return;
+    }
+
+
+---- onCreate(Landroid/os/Bundle;)V
+
+    public final void onCreate(android.os.Bundle p3)
+    {
+        super.onCreate(p3);
+        N3.y.g(this);
+        androidx.compose.runtime.internal.ComposableLambda v3_5 = com.wuling.app.data.local.AmapKeyManager.INSTANCE;
+        v3_5.loadFromPrefs(this);
+        v3_5.restoreFromCloud(this);
+        v3_5.syncLocalToCloud();
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "context");
+        X3.i.b(this, this.getSharedPreferences("app_settings", 0).getBoolean("hide_from_recents", 0));
+        this.j(this.getIntent());
+        d.i.a(this, androidx.compose.runtime.internal.ComposableLambdaKt.composableLambdaInstance(1487028494, 1, new com.wuling.app.b1(this, 0)));
+        return;
+    }
+
+
+---- onNewIntent(Landroid/content/Intent;)V
+
+    public final void onNewIntent(android.content.Intent p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "intent");
+        super.onNewIntent(p2);
+        this.setIntent(p2);
+        this.j(p2);
+        return;
+    }
+
+
+---- onPause()V
+
+    public final void onPause()
+    {
+        super.onPause();
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "activity");
+        android.nfc.NfcAdapter v0_1 = android.nfc.NfcAdapter.getDefaultAdapter(this);
+        try {
+            if (v0_1 != null) {
+                v0_1.disableForegroundDispatch(this);
+            }
+        } catch (Exception) {
+        }
+        return;
+    }
+
+
+---- onResume()V
+
+    public final void onResume()
+    {
+        super.onResume();
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "activity");
+        android.nfc.NfcAdapter v0_1 = android.nfc.NfcAdapter.getDefaultAdapter(this);
+        try {
+            if (v0_1 != null) {
+                android.app.PendingIntent v1_2 = new android.content.Intent(this, this.getClass());
+                v1_2.addFlags(536870912);
+                v0_1.enableForegroundDispatch(this, android.app.PendingIntent.getActivity(this, 0, v1_2, 167772160), 0, 0);
+            }
+        } catch (Exception) {
+        }
+        return;
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/WulingApplication; 父:Lcom/wuling/app/a1;
+==========================================================================================
+
+---- <init>()V
+
+    public WulingApplication()
+    {
+        return;
+    }
+
+
+---- a()Ld2/l;
+
+    public final d2.l a()
+    {
+        d2.l v0_1 = new b4.b(this, 5);
+        v0_1.b = n2.c.a(((n2.c) v0_1.b), 28671);
+        v0_1.c = kotlin.LazyKt.lazy(new com.wuling.app.w1(this, 0));
+        v0_1.b = n2.c.a(((n2.c) v0_1.b), 24575);
+        v0_1.d = kotlin.LazyKt.lazy(new com.wuling.app.w1(this, 1));
+        return v0_1.h();
+    }
+
+
+---- attachBaseContext(Landroid/content/Context;)V
+
+    public final void attachBaseContext(android.content.Context p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "base");
+        super.attachBaseContext(p2);
+        try {
+            if (android.os.Build$VERSION.SDK_INT >= 28) {
+                java.util.HashSet v0_1 = org.lsposed.hiddenapibypass.h.a;
+                v0_1.addAll(java.util.Arrays.asList(new String[] {"L"})));
+                String[] v2_3 = new String[v0_1.size()];
+                v0_1.toArray(v2_3);
+                org.lsposed.hiddenapibypass.i.b(v2_3);
+            }
+        } catch (Throwable) {
+        }
+        return;
+    }
+
+
+---- onCreate()V
+
+    public final void onCreate()
+    {
+        super.onCreate();
+        com.wuling.app.data.local.CacheConfig.INSTANCE.init(this);
+        try {
+            if (!v5.a.c(this).equals("85:98:3D:67:33:46:47:C6:D4:88:E8:C3:9E:72:95:42:5D:6B:8B:00:D2:04:3A:8B:9D:37:76:A2:6A:5C:58:98")) {
+                new Thread(new com.wuling.app.data.local.a(3)).start();
+            }
+        } catch (Throwable) {
+            new Thread(new com.wuling.app.data.local.a(3)).start();
+        }
+        O1.n v3_5 = 0;
+        com.wuling.app.data.local.CacheSyncService$Companion v0_12 = android.os.Process.myPid();
+        String v4_8 = this.getSystemService("activity");
+        kotlin.jvm.internal.Intrinsics.checkNotNull(v4_8, "null cannot be cast to non-null type android.app.ActivityManager");
+        String v4_11 = ((android.app.ActivityManager) v4_8).getRunningAppProcesses();
+        if (v4_11 != null) {
+            String v4_12 = v4_11.iterator();
+            while (v4_12.hasNext()) {
+                int v5_25 = ((android.app.ActivityManager$RunningAppProcessInfo) v4_12.next());
+                if (v5_25.pid == v0_12) {
+                    com.wuling.app.data.local.CacheSyncService$Companion v0_29 = v5_25.processName;
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v0_29, "processName");
+                    com.wuling.app.data.local.CacheSyncService$Companion v0_30 = kotlin.text.StringsKt.u(v0_29, ":verify");
+                    if (v0_30 == null) {
+                        try {
+                            com.wuling.app.data.local.CacheSyncService$Companion v0_31 = org.conscrypt.Conscrypt.newProvider();
+                        } catch (Throwable) {
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "context");
+                            m3.h.e = this.getApplicationContext();
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "context");
+                            int v5_26 = this.getSharedPreferences("adb_cert_config", 0);
+                            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v5_26, "getSharedPreferences(...)");
+                            com.wuling.app.data.local.CacheSyncService$Companion v0_35 = 0;
+                            long v7_18 = v5_26.getString("encoded_private_key", 0);
+                            if (v7_18 == 0) {
+                                long v7_19 = 0;
+                            } else {
+                                v7_19 = kotlin.text.StringsKt.encodeToByteArray(v7_18);
+                            }
+                            String v9_15 = v5_26.getString("encoded_certificate", 0);
+                            if (v9_15 != null) {
+                                v0_35 = kotlin.text.StringsKt.encodeToByteArray(v9_15);
+                            }
+                            if (v7_19 == 0) {
+                                String v9_17 = 0;
+                            } else {
+                                if (v7_19.length != 0) {
+                                    v9_17 = 1;
+                                }
+                            }
+                            if (v0_35 == null) {
+                                String v10_3 = 0;
+                            } else {
+                                if (v0_35.length != 0) {
+                                    v10_3 = 1;
+                                }
+                            }
+                            long v11_5 = new StringBuilder("init start: hasPrivateKey=");
+                            v11_5.append(v9_17);
+                            v11_5.append(", hasCertificate=");
+                            v11_5.append(v10_3);
+                            android.util.Log.i("ADB_CERT", v11_5.toString());
+                            com.flyfishxu.kadb.cert.KadbCert.configure$default(com.flyfishxu.kadb.cert.KadbCert.INSTANCE, new i4.a(v5_26), new com.flyfishxu.kadb.cert.KadbCertPolicy(0, 365, 0, new com.flyfishxu.kadb.cert.KadbCertPolicy$Subject("AdbToolsClient", "adbTools", "adbTools", "adbTools", "adbTools", "CN"), 5, 0), 0, 4, 0);
+                            try {
+                                com.wuling.app.data.local.CacheSyncService$Companion v0_0 = o3.a.b(v7_19, v0_35);
+                                v5_26.edit().putString("encoded_private_key", kotlin.text.StringsKt.decodeToString(v0_0.getPrivateKeyPem())).putString("encoded_certificate", kotlin.text.StringsKt.decodeToString(v0_0.getCertificatePem())).apply();
+                                o3.a.a("init complete", v0_0);
+                            } catch (com.wuling.app.data.local.CacheSyncService$Companion v0_1) {
+                                String vtmp35 = kotlin.sequences.SequencesKt.u(kotlin.sequences.SequencesKt.mapNotNull(kotlin.sequences.SequencesKt.generateSequence(v0_1, new n0.c(14)), new n0.c(15)), "\n");
+                                if (!(v0_1 instanceof com.flyfishxu.kadb.cert.KadbCertException$PrivateKeyParseFailed)) {
+                                    if (!(v0_1 instanceof com.flyfishxu.kadb.cert.KadbCertException$StoreReadFailed)) {
+                                        if (!kotlin.text.StringsKt.p(vtmp35, "Only RSA private keys with CRT parameters are supported")) {
+                                            throw v0_1;
+                                        }
+                                    }
+                                }
+                                android.util.Log.w("ADB_CERT", "\u68c0\u6d4b\u5230\u65e7\u7248 ADB \u79c1\u94a5\u4e0d\u517c\u5bb9\uff0c\u5df2\u81ea\u52a8\u91cd\u5efa\u914d\u5bf9\u51ed\u636e\uff0c\u8bbe\u5907\u7aef\u53ef\u80fd\u9700\u8981\u91cd\u65b0\u6388\u6743\u4e00\u6b21", v0_1);
+                                com.wuling.app.data.local.CacheSyncService$Companion v0_2 = com.flyfishxu.kadb.cert.KadbCert.INSTANCE;
+                                v0_2.clear();
+                                v5_26.edit().remove("encoded_private_key").remove("encoded_certificate").apply();
+                                com.wuling.app.data.local.CacheSyncService$Companion v0_3 = v0_2.ensureReady();
+                                v5_26.edit().putString("encoded_private_key", kotlin.text.StringsKt.decodeToString(v0_3.getPrivateKeyPem())).putString("encoded_certificate", kotlin.text.StringsKt.decodeToString(v0_3.getCertificatePem())).apply();
+                                o3.a.a("identity regenerated after auto-heal", v0_3);
+                            }
+                            if (android.os.Build$VERSION.SDK_INT < 28) {
+                                com.wuling.app.data.local.CacheSyncService$Companion v0_6 = this.getPackageName();
+                            } else {
+                                v0_6 = S0.c.n();
+                                if (android.text.TextUtils.isEmpty(v0_6)) {
+                                }
+                            }
+                            if (v0_6 != null) {
+                                if (kotlin.text.StringsKt.u(v0_6, ":recovery")) {
+                                    v3_5 = 1;
+                                }
+                            }
+                            if (v3_5 == null) {
+                                Thread.setDefaultUncaughtExceptionHandler(new q3.b(this));
+                            }
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(this, "context");
+                            com.wuling.app.data.local.CacheSyncService$Companion v0_11 = new java.util.LinkedHashSet();
+                            String v4_4 = N1.t.c;
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v4_4, "networkType");
+                            O1.n v3_8 = new N1.e(v4_4, 0, 0, 0, 0, -1, -1, kotlin.collections.CollectionsKt.toSet(v0_11));
+                            com.wuling.app.data.local.CacheSyncService$Companion v0_13 = java.util.concurrent.TimeUnit.MINUTES;
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(com.wuling.app.widget.WidgetRefreshWorker, "workerClass");
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v0_13, "repeatIntervalTimeUnit");
+                            String v4_6 = new N1.v(1, com.wuling.app.widget.WidgetRefreshWorker);
+                            O1.r v2_2 = ((W1.o) v4_6.b);
+                            int v5_11 = v0_13.toMillis(5);
+                            v2_2.getClass();
+                            String v9_14 = W1.o.x;
+                            if (v5_11 < 900000) {
+                                N1.s.d().g(v9_14, "Interval duration lesser than minimum allowed value; Changed to 900000");
+                            }
+                            long v11_3 = kotlin.ranges.RangesKt.coerceAtLeast(v5_11, 900000);
+                            long v13_3 = kotlin.ranges.RangesKt.coerceAtLeast(v5_11, 900000);
+                            if (v11_3 < 900000) {
+                                N1.s.d().g(v9_14, "Interval duration lesser than minimum allowed value; Changed to 900000");
+                            }
+                            v2_2.h = kotlin.ranges.RangesKt.coerceAtLeast(v11_3, 900000);
+                            if (v13_3 < 300000) {
+                                N1.s.d().g(v9_14, "Flex duration lesser than minimum allowed value; Changed to 300000");
+                            }
+                            if (v13_3 > v2_2.h) {
+                                com.wuling.app.data.local.CacheSyncService$Companion v0_21 = N1.s.d();
+                                int v5_18 = new StringBuilder("Flex duration greater than interval duration; Changed to ");
+                                v5_18.append(v11_3);
+                                v0_21.g(v9_14, v5_18.toString());
+                            }
+                            v2_2.i = kotlin.ranges.RangesKt.coerceIn(v13_3, 300000, v2_2.h);
+                            kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v3_8, "constraints");
+                            ((W1.o) v4_6.b).j = v3_8;
+                            new O1.n(O1.r.d0(this), "widget_refresh_work", 2, java.util.Collections.singletonList(((N1.C) v4_6.b()))).P();
+                            com.wuling.app.data.local.CacheSyncService.Companion.start(this);
+                            return;
+                        }
+                        if (java.security.Security.getProvider(v0_31.getName()) != null) {
+                        } else {
+                            java.security.Security.insertProviderAt(v0_31, 1);
+                        }
+                    } else {
+                        return;
+                    }
+                }
+            }
+            while(true) {
+                v0_30 = 0;
+            }
+        } else {
+        }
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/data/api/APIConfig; 父:Ljava/lang/Object;
+==========================================================================================
+
+---- <clinit>()V
+
+    static APIConfig()
+    {
+        com.wuling.app.data.api.APIConfig.INSTANCE = new com.wuling.app.data.api.APIConfig();
+        com.wuling.app.data.api.APIConfig.accessToken = "";
+        com.wuling.app.data.api.APIConfig.$stable = 8;
+        return;
+    }
+
+
+---- <init>()V
+
+    private APIConfig()
+    {
+        return;
+    }
+
+
+---- getAccessToken()Ljava/lang/String;
+
+    public final String getAccessToken()
+    {
+        return com.wuling.app.data.api.APIConfig.accessToken;
+    }
+
+
+---- getApiVersion()Ljava/lang/String;
+
+    public final String getApiVersion()
+    {
+        return "V8.2.3.1";
+    }
+
+
+---- getApiVersionCode()Ljava/lang/String;
+
+    public final String getApiVersionCode()
+    {
+        return "1661";
+    }
+
+
+---- getAppCode()Ljava/lang/String;
+
+    public final String getAppCode()
+    {
+        return "sgmw_llb";
+    }
+
+
+---- getAppVersion()Ljava/lang/String;
+
+    public final String getAppVersion()
+    {
+        return "1691";
+    }
+
+
+---- getBaseURL()Ljava/lang/String;
+
+    public final String getBaseURL()
+    {
+        return "https://openapi.baojun.net/junApi/sgmw";
+    }
+
+
+---- getClientId()Ljava/lang/String;
+
+    public final String getClientId()
+    {
+        return "sgmw_llb";
+    }
+
+
+---- getClientSecret()Ljava/lang/String;
+
+    public final String getClientSecret()
+    {
+        return "8c5a7a7d7d6f4a5e8c6b8d9e0f1a2b3c";
+    }
+
+
+---- getDeviceBrand()Ljava/lang/String;
+
+    public final String getDeviceBrand()
+    {
+        return "vivo";
+    }
+
+
+---- getDeviceImei()Ljava/lang/String;
+
+    public final String getDeviceImei()
+    {
+        return "a-895ecd09a317338c";
+    }
+
+
+---- getDeviceModel()Ljava/lang/String;
+
+    public final String getDeviceModel()
+    {
+        return "V1938CT";
+    }
+
+
+---- getGeoApiUrl()Ljava/lang/String;
+
+    public final String getGeoApiUrl()
+    {
+        return "https://locate.ms.tn";
+    }
+
+
+---- isConfigured()Z
+
+    public final boolean isConfigured()
+    {
+        if (com.wuling.app.data.api.APIConfig.accessToken.length() <= 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+
+---- setAccessToken(Ljava/lang/String;)V
+
+    public final void setAccessToken(String p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "token");
+        com.wuling.app.data.api.APIConfig.accessToken = p2;
+        return;
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/data/api/WulingAPI; 父:Ljava/lang/Object;
+==========================================================================================
+
+---- <init>()V
+
+    public WulingAPI()
+    {
+        this.TAG = "WulingAPI";
+        long v0_7 = new C4.C();
+        C4.D v1_3 = java.util.concurrent.TimeUnit.SECONDS;
+        v0_7.a(30, v1_3);
+        v0_7.b(30, v1_3);
+        v0_7.c(30, v1_3);
+        C4.D v1_0 = this.createLoggingInterceptor();
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_0, "interceptor");
+        v0_7.c.add(v1_0);
+        this.client = new C4.D(v0_7);
+        this.gson = new com.google.gson.Gson();
+        this.cache = new java.util.LinkedHashMap();
+        this.cacheExpiryTime = 60000;
+        return;
+    }
+
+
+---- a(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence a(byte p0)
+    {
+        return com.wuling.app.data.api.WulingAPI.md5Hex$lambda$2(p0);
+    }
+
+
+---- access$buildCommonHeaders(Lcom/wuling/app/data/api/WulingAPI; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)Ljava/util/Map;
+
+    public static final synthetic java.util.Map access$buildCommonHeaders(com.wuling.app.data.api.WulingAPI p0, String p1, String p2, String p3)
+    {
+        return p0.buildCommonHeaders(p1, p2, p3);
+    }
+
+
+---- access$executeWithRetry-yxL6bBk(Lcom/wuling/app/data/api/WulingAPI; I J J Lkotlin/jvm/functions/Function1; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public static final synthetic Object access$executeWithRetry-yxL6bBk(com.wuling.app.data.api.WulingAPI p0, int p1, long p2, long p4, kotlin.jvm.functions.Function1 p6, kotlin.coroutines.Continuation p7)
+    {
+        return p0.executeWithRetry-yxL6bBk(p1, p2, p4, p6, p7);
+    }
+
+
+---- access$generateRandomLetters(Lcom/wuling/app/data/api/WulingAPI; I)Ljava/lang/String;
+
+    public static final synthetic String access$generateRandomLetters(com.wuling.app.data.api.WulingAPI p0, int p1)
+    {
+        return p0.generateRandomLetters(p1);
+    }
+
+
+---- access$getClient$p(Lcom/wuling/app/data/api/WulingAPI;)LC4/D;
+
+    public static final synthetic C4.D access$getClient$p(com.wuling.app.data.api.WulingAPI p0)
+    {
+        return p0.client;
+    }
+
+
+---- access$getFromCache(Lcom/wuling/app/data/api/WulingAPI; Ljava/lang/String;)Ljava/lang/Object;
+
+    public static final synthetic Object access$getFromCache(com.wuling.app.data.api.WulingAPI p0, String p1)
+    {
+        return p0.getFromCache(p1);
+    }
+
+
+---- access$getGson$p(Lcom/wuling/app/data/api/WulingAPI;)Lcom/google/gson/Gson;
+
+    public static final synthetic com.google.gson.Gson access$getGson$p(com.wuling.app.data.api.WulingAPI p0)
+    {
+        return p0.gson;
+    }
+
+
+---- access$getTokenInvalidCallback$p(Lcom/wuling/app/data/api/WulingAPI;)Lcom/wuling/app/data/api/WulingAPI$TokenInvalidCallback;
+
+    public static final synthetic com.wuling.app.data.api.WulingAPI$TokenInvalidCallback access$getTokenInvalidCallback$p(com.wuling.app.data.api.WulingAPI p0)
+    {
+        return p0.tokenInvalidCallback;
+    }
+
+
+---- access$md5Hex(Lcom/wuling/app/data/api/WulingAPI; Ljava/lang/String;)Ljava/lang/String;
+
+    public static final synthetic String access$md5Hex(com.wuling.app.data.api.WulingAPI p0, String p1)
+    {
+        return p0.md5Hex(p1);
+    }
+
+
+---- access$putToCache(Lcom/wuling/app/data/api/WulingAPI; Ljava/lang/String; Ljava/lang/Object;)V
+
+    public static final synthetic void access$putToCache(com.wuling.app.data.api.WulingAPI p0, String p1, Object p2)
+    {
+        p0.putToCache(p1, p2);
+        return;
+    }
+
+
+---- b(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence b(byte p0)
+    {
+        return com.wuling.app.data.api.WulingAPI.generateSignature$lambda$1(p0);
+    }
+
+
+---- buildCommonHeaders(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)Ljava/util/Map;
+
+    private final java.util.Map buildCommonHeaders(String p27, String p28, String p29)
+    {
+        java.util.Map v0_0 = this.generateSignature(p27, p28, p29);
+        kotlin.Pair v3 = kotlin.TuplesKt.to("Content-Type", "application/json; charset=UTF-8");
+        kotlin.TuplesKt.to("Accept", "application/json");
+        kotlin.TuplesKt.to("User-Agent", "okhttp/4.9.0");
+        kotlin.TuplesKt.to("channel", "linglingbang");
+        kotlin.TuplesKt.to("platformNo", "Android");
+        String v1_5 = com.wuling.app.data.api.APIConfig.INSTANCE;
+        kotlin.TuplesKt.to("appVersionCode", v1_5.getApiVersionCode());
+        kotlin.TuplesKt.to("version", v1_5.getApiVersion());
+        kotlin.TuplesKt.to("imei", v1_5.getDeviceImei());
+        kotlin.TuplesKt.to("imsi", "unknown");
+        kotlin.TuplesKt.to("deviceModel", v1_5.getDeviceModel());
+        kotlin.TuplesKt.to("deviceBrand", v1_5.getDeviceBrand());
+        kotlin.TuplesKt.to("deviceType", "Android");
+        kotlin.TuplesKt.to("accessChannel", "1");
+        kotlin.Pair v16 = v1_5;
+        kotlin.TuplesKt.to("sgmwaccesstoken", p27);
+        kotlin.TuplesKt.to("sgmwtimestamp", p28);
+        kotlin.TuplesKt.to("sgmwnonce", p29);
+        kotlin.TuplesKt.to("sgmwclientid", v16.getClientId());
+        kotlin.TuplesKt.to("sgmwclientsecret", v16.getClientSecret());
+        kotlin.TuplesKt.to("sgmwappcode", v16.getAppCode());
+        kotlin.TuplesKt.to("sgmwappversion", v16.getAppVersion());
+        kotlin.TuplesKt.to("sgmwsystem", "android");
+        kotlin.TuplesKt.to("sgmwsystemversion", "10");
+        return kotlin.collections.MapsKt.mapOf(new kotlin.Pair[] {v3, kotlin.TuplesKt.to("sgmwsignature", v0_0)}));
+    }
+
+
+---- createLoggingInterceptor()LQ4/c;
+
+    private final Q4.c createLoggingInterceptor()
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(Q4.b.a, "logger");
+        Q4.c v0_1 = new Q4.c();
+        v0_1.a = kotlin.collections.SetsKt.emptySet();
+        Q4.a v1_2 = Q4.a.b;
+        v0_1.b = v1_2;
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_2, "<set-?>");
+        v0_1.b = v1_2;
+        return v0_1;
+    }
+
+
+---- executeWithRetry-yxL6bBk(I J J Lkotlin/jvm/functions/Function1; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    private final Object executeWithRetry-yxL6bBk(int p23, long p24, long p26, kotlin.jvm.functions.Function1 p28, kotlin.coroutines.Continuation p29)
+    {
+        com.wuling.app.data.api.WulingAPI$executeWithRetry$1 v2_1;
+        if (!(p29 instanceof com.wuling.app.data.api.WulingAPI$executeWithRetry$1)) {
+            v2_1 = new com.wuling.app.data.api.WulingAPI$executeWithRetry$1(this, p29);
+        } else {
+            v2_1 = ((com.wuling.app.data.api.WulingAPI$executeWithRetry$1) p29);
+            com.wuling.app.data.api.WulingAPI v3_6 = ((com.wuling.app.data.api.WulingAPI$executeWithRetry$1) p29).label;
+            if ((v3_6 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$executeWithRetry$1) p29).label = (v3_6 - -2147483648);
+            }
+        }
+        int v8_0;
+        int v16_1;
+        int v8_1;
+        int v10;
+        com.wuling.app.data.api.WulingAPI$executeWithRetry$1 v9_0;
+        Throwable v0_8;
+        long v1_2;
+        kotlin.jvm.functions.Function1 v19_1;
+        com.wuling.app.data.api.WulingAPI$executeWithRetry$1 v9_1;
+        kotlin.jvm.functions.Function1 v5_0;
+        int v12;
+        kotlin.jvm.functions.Function1 v5_2;
+        Throwable v11_2;
+        Throwable v11_0;
+        kotlin.jvm.functions.Function1 v13_3;
+        Throwable v11_1;
+        kotlin.jvm.functions.Function1 v13_4;
+        long v1_1;
+        kotlin.jvm.internal.Ref$ObjectRef v14_0;
+        kotlin.jvm.functions.Function1 v7_0;
+        com.wuling.app.data.api.WulingAPI v3_2;
+        kotlin.jvm.functions.Function1 v15_0;
+        kotlin.jvm.functions.Function1 v7_2;
+        kotlin.jvm.functions.Function1 v15_1;
+        Throwable v0_1 = v2_1.result;
+        Object v4_0 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        kotlin.jvm.functions.Function1 v5_1 = v2_1.label;
+        int v6_2 = 0;
+        if (v5_1 == null) {
+            v16_1 = 1;
+            kotlin.ResultKt.throwOnFailure(v0_1);
+            v7_2 = p26;
+            v5_2 = p28;
+            v9_1 = new kotlin.jvm.internal.Ref$ObjectRef();
+            v10 = (p23 + 1);
+            v11_1 = v2_1;
+            v12 = 0;
+            v0_8 = p23;
+            v1_2 = p24;
+            if (v12 >= v10) {
+                Throwable v0_12 = ((Throwable) v9_1.element);
+                if (v0_12 == null) {
+                    v0_12 = new com.wuling.app.data.api.APIError("\u8bf7\u6c42\u5931\u8d25");
+                }
+                return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(v0_12));
+            } else {
+                v11_1.L$0 = v5_2;
+                v11_1.L$1 = v9_1;
+                v11_1.L$2 = 0;
+                v11_1.I$0 = v0_8;
+                v11_1.J$0 = v1_2;
+                v11_1.J$1 = v7_2;
+                v11_1.I$1 = v10;
+                v11_1.I$2 = v12;
+                v11_1.I$3 = v12;
+                v11_1.I$4 = v6_2;
+                v11_1.label = v16_1;
+                kotlin.jvm.functions.Function1 v13_2 = v5_2.invoke(v11_1);
+                if (v13_2 != v4_0) {
+                    v15_0 = v0_8;
+                    v0_1 = v13_2;
+                    v13_3 = v1_2;
+                    v1_1 = v6_2;
+                    v2_1 = v11_1;
+                    v7_0 = v5_2;
+                    v5_0 = v12;
+                    v8_0 = v5_0;
+                    v11_0 = v7_2;
+                    Throwable v0_3 = ((kotlin.Result) v0_1).unbox-impl();
+                    if (!kotlin.Result.isSuccess-impl(v0_3)) {
+                        v9_1.element = kotlin.Result.exceptionOrNull-impl(v0_3);
+                        if (v8_0 >= v15_0) {
+                            v3_2 = v4_0;
+                            v19_1 = v11_0;
+                            v11_1 = v2_1;
+                            v1_2 = v13_3;
+                            v13_4 = v15_0;
+                            v15_1 = v7_0;
+                            v7_2 = v19_1;
+                            v16_1 = 1;
+                            v12 = (v5_0 + 1);
+                            v4_0 = v3_2;
+                            v0_8 = v13_4;
+                            v5_2 = v15_1;
+                            v6_2 = 0;
+                        } else {
+                            Object v18 = v4_0;
+                            com.wuling.app.data.api.WulingAPI v3_5 = Math.min((((long) (1 << v8_0)) * v13_3), v11_0);
+                            v2_1.L$0 = v7_0;
+                            v2_1.L$1 = v9_1;
+                            v2_1.L$2 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(v0_3);
+                            v2_1.I$0 = v15_0;
+                            v2_1.J$0 = v13_3;
+                            v2_1.J$1 = v11_0;
+                            v2_1.I$1 = v10;
+                            v2_1.I$2 = v5_0;
+                            v2_1.I$3 = v8_0;
+                            v2_1.I$4 = v1_1;
+                            v2_1.J$2 = v3_5;
+                            v2_1.label = 2;
+                            v3_2 = v18;
+                            if (m4.N.b(v3_5, v2_1) != v3_2) {
+                                v8_1 = v10;
+                                v15_1 = v7_0;
+                                v14_0 = v9_1;
+                                v9_0 = v11_0;
+                                v11_2 = v13_3;
+                                v13_4 = v15_0;
+                                v11_1 = v2_1;
+                                v1_2 = v11_2;
+                                v19_1 = v9_0;
+                                v10 = v8_1;
+                                v9_1 = v14_0;
+                            }
+                        }
+                    } else {
+                        return v0_3;
+                    }
+                } else {
+                    v3_2 = v4_0;
+                }
+            }
+        } else {
+            if (v5_1 == 1) {
+                kotlin.jvm.functions.Function1 v5_3 = v2_1.I$4;
+                v8_0 = v2_1.I$3;
+                com.wuling.app.data.api.WulingAPI$executeWithRetry$1 v9_2 = v2_1.I$2;
+                v10 = v2_1.I$1;
+                v11_0 = v2_1.J$1;
+                v13_3 = v2_1.J$0;
+                v15_0 = v2_1.I$0;
+                kotlin.jvm.functions.Function1 v7_4 = ((kotlin.jvm.internal.Ref$ObjectRef) v2_1.L$1);
+                long v1_6 = ((kotlin.jvm.functions.Function1) v2_1.L$0);
+                kotlin.ResultKt.throwOnFailure(v0_1);
+                v7_0 = v1_6;
+                v1_1 = v5_3;
+                v5_0 = v9_2;
+                v9_1 = v7_4;
+            } else {
+                if (v5_1 != 2) {
+                    throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+                } else {
+                    v5_0 = v2_1.I$2;
+                    v8_1 = v2_1.I$1;
+                    v9_0 = v2_1.J$1;
+                    v11_2 = v2_1.J$0;
+                    v13_4 = v2_1.I$0;
+                    v14_0 = ((kotlin.jvm.internal.Ref$ObjectRef) v2_1.L$1);
+                    v15_1 = ((kotlin.jvm.functions.Function1) v2_1.L$0);
+                    kotlin.ResultKt.throwOnFailure(v0_1);
+                    v3_2 = v4_0;
+                }
+            }
+        }
+        return v3_2;
+    }
+
+
+---- executeWithRetry-yxL6bBk$default(Lcom/wuling/app/data/api/WulingAPI; I J J Lkotlin/jvm/functions/Function1; Lkotlin/coroutines/Continuation; I Ljava/lang/Object;)Ljava/lang/Object;
+
+    public static synthetic Object executeWithRetry-yxL6bBk$default(com.wuling.app.data.api.WulingAPI p0, int p1, long p2, long p4, kotlin.jvm.functions.Function1 p6, kotlin.coroutines.Continuation p7, int p8, Object p9)
+    {
+        if ((p8 & 1) != 0) {
+            p1 = 2;
+        }
+        if ((p8 & 2) != 0) {
+            p2 = 1000;
+        }
+        if ((p8 & 4) != 0) {
+            p4 = 5000;
+        }
+        return p0.executeWithRetry-yxL6bBk(p1, p2, p4, p6, p7);
+    }
+
+
+---- generateRandomLetters(I)Ljava/lang/String;
+
+    private final String generateRandomLetters(int p9)
+    {
+        Character v0_2 = new kotlin.ranges.IntRange(1, p9);
+        java.util.ArrayList v2_1 = new java.util.ArrayList(kotlin.collections.CollectionsKt.k(v0_2));
+        String v9_3 = v0_2.iterator();
+        while (v9_3.hasNext()) {
+            ((kotlin.collections.IntIterator) v9_3).nextInt();
+            v2_1.add(Character.valueOf(kotlin.text.StringsKt.E(kotlin.random.Random.Default)));
+        }
+        return kotlin.collections.CollectionsKt.r(v2_1, "", 0, 0, 0, 62);
+    }
+
+
+---- generateSignature(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+
+    private final String generateSignature(String p8, String p9, String p10)
+    {
+        byte[] v0_0 = com.wuling.app.data.api.APIConfig.INSTANCE;
+        String v1_0 = v0_0.getClientId();
+        int v2_1 = v0_0.getClientSecret();
+        int v3_1 = v0_0.getAppCode();
+        byte[] v0_2 = v0_0.getAppVersion();
+        int v4_0 = new StringBuilder();
+        v4_0.append(p8);
+        v4_0.append(p9);
+        v4_0.append(p10);
+        v4_0.append(v1_0);
+        v4_0.append(v2_1);
+        v4_0.append(v3_1);
+        v4_0.append(v0_2);
+        v4_0.append("android10");
+        String v8_2 = v4_0.toString();
+        java.security.MessageDigest v9_2 = java.security.MessageDigest.getInstance("SHA-256");
+        String v8_3 = v8_2.getBytes(kotlin.text.Charsets.UTF_8);
+        kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v8_3, "getBytes(...)");
+        byte[] v0_1 = v9_2.digest(v8_3);
+        kotlin.jvm.internal.Intrinsics.checkNotNull(v0_1);
+        return kotlin.collections.ArraysKt.z(v0_1, "", 0, 0, 0, new com.wuling.app.data.api.a(1), 30);
+    }
+
+
+---- generateSignature$lambda$1(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence generateSignature$lambda$1(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02x", "format(...)");
+    }
+
+
+---- getFromCache(Ljava/lang/String;)Ljava/lang/Object;
+
+    private final Object getFromCache(String p6)
+    {
+        java.util.Map v0_4 = ((kotlin.Pair) this.cache.get(p6));
+        if (v0_4 != null) {
+            long v1_4 = ((Number) v0_4.component1()).longValue();
+            java.util.Map v0_1 = v0_4.component2();
+            if ((System.currentTimeMillis() - v1_4) >= this.cacheExpiryTime) {
+                this.cache.remove(p6);
+            } else {
+                return v0_1;
+            }
+        }
+        return 0;
+    }
+
+
+---- md5Hex(Ljava/lang/String;)Ljava/lang/String;
+
+    private final String md5Hex(String p10)
+    {
+        java.security.MessageDigest v0_1 = java.security.MessageDigest.getInstance("MD5");
+        String v10_3 = p10.getBytes(kotlin.text.Charsets.UTF_8);
+        kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v10_3, "getBytes(...)");
+        byte[] v2 = v0_1.digest(v10_3);
+        kotlin.jvm.internal.Intrinsics.checkNotNull(v2);
+        return kotlin.collections.ArraysKt.z(v2, "", 0, 0, 0, new com.wuling.app.data.api.a(2), 30);
+    }
+
+
+---- md5Hex$lambda$2(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence md5Hex$lambda$2(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02x", "format(...)");
+    }
+
+
+---- putToCache(Ljava/lang/String; Ljava/lang/Object;)V
+
+    private final void putToCache(String p5, Object p6)
+    {
+        this.cache.put(p5, new kotlin.Pair(Long.valueOf(System.currentTimeMillis()), p6));
+        return;
+    }
+
+
+---- reverseGeocode-BWLJW6A$default(Lcom/wuling/app/data/api/WulingAPI; D D Ljava/lang/String; Lkotlin/coroutines/Continuation; I Ljava/lang/Object;)Ljava/lang/Object;
+
+    public static synthetic Object reverseGeocode-BWLJW6A$default(com.wuling.app.data.api.WulingAPI p7, double p8, double p10, String p12, kotlin.coroutines.Continuation p13, int p14, Object p15)
+    {
+        if ((p14 & 4) != 0) {
+            p12 = 0;
+        }
+        return p7.reverseGeocode-BWLJW6A(p8, p10, p12, p13);
+    }
+
+
+---- sendCommand-0E7RQCE$default(Lcom/wuling/app/data/api/WulingAPI; Ljava/lang/String; Ljava/util/Map; Lkotlin/coroutines/Continuation; I Ljava/lang/Object;)Ljava/lang/Object;
+
+    public static synthetic Object sendCommand-0E7RQCE$default(com.wuling.app.data.api.WulingAPI p0, String p1, java.util.Map p2, kotlin.coroutines.Continuation p3, int p4, Object p5)
+    {
+        if ((p4 & 2) != 0) {
+            p2 = kotlin.collections.MapsKt.emptyMap();
+        }
+        return p0.sendCommand-0E7RQCE(p1, p2, p3);
+    }
+
+
+---- authorizeIgnition-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object authorizeIgnition-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$authorizeIgnition$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$authorizeIgnition$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$authorizeIgnition$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$authorizeIgnition$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$authorizeIgnition$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$authorizeIgnition$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$authorizeIgnition$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$authorizeIgnition$2 v2_2 = new com.wuling.app.data.api.WulingAPI$authorizeIgnition$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- checkCarStatus-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object checkCarStatus-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$checkCarStatus$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$checkCarStatus$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$checkCarStatus$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$checkCarStatus$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$checkCarStatus$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$checkCarStatus$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$checkCarStatus$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$checkCarStatus$2 v2_2 = new com.wuling.app.data.api.WulingAPI$checkCarStatus$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- clearCache()V
+
+    public final void clearCache()
+    {
+        this.cache.clear();
+        return;
+    }
+
+
+---- controlAC-gIAlu-s(Ljava/util/Map; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object controlAC-gIAlu-s(java.util.Map p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$controlAC$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$controlAC$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$controlAC$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$controlAC$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$controlAC$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$controlAC$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$controlAC$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$controlAC$2 v2_2 = new com.wuling.app.data.api.WulingAPI$controlAC$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- controlDoorLock-0E7RQCE(Ljava/lang/String; I Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object controlDoorLock-0E7RQCE(String p6, int p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$controlDoorLock$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$controlDoorLock$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$controlDoorLock$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$controlDoorLock$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$controlDoorLock$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$controlDoorLock$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$controlDoorLock$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$controlDoorLock$2 v2_2 = new com.wuling.app.data.api.WulingAPI$controlDoorLock$2(this, p6, p7, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.I$0 = p7;
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- controlTailgate-0E7RQCE(Ljava/lang/String; I Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object controlTailgate-0E7RQCE(String p6, int p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$controlTailgate$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$controlTailgate$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$controlTailgate$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$controlTailgate$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$controlTailgate$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$controlTailgate$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$controlTailgate$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$controlTailgate$2 v2_2 = new com.wuling.app.data.api.WulingAPI$controlTailgate$2(this, p6, p7, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.I$0 = p7;
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- controlWindow-0E7RQCE(Ljava/lang/String; I Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object controlWindow-0E7RQCE(String p6, int p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$controlWindow$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$controlWindow$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$controlWindow$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$controlWindow$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$controlWindow$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$controlWindow$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$controlWindow$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$controlWindow$2 v2_2 = new com.wuling.app.data.api.WulingAPI$controlWindow$2(this, p6, p7, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.I$0 = p7;
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- fetchYesterdayMileage-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object fetchYesterdayMileage-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$2 v2_2 = new com.wuling.app.data.api.WulingAPI$fetchYesterdayMileage$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- getBleKeyInfo-0E7RQCE(Ljava/lang/String; Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object getBleKeyInfo-0E7RQCE(String p6, String p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$getBleKeyInfo$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$getBleKeyInfo$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$getBleKeyInfo$2 v2_2 = new com.wuling.app.data.api.WulingAPI$getBleKeyInfo$2(p6, p7, this, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.L$1 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p7);
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                p6 = ((String) v0_2.L$0);
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- getMqttCredentials-0E7RQCE(Ljava/lang/String; Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object getMqttCredentials-0E7RQCE(String p6, String p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$getMqttCredentials$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$getMqttCredentials$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$getMqttCredentials$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$getMqttCredentials$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$getMqttCredentials$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$getMqttCredentials$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$getMqttCredentials$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$getMqttCredentials$2 v2_2 = new com.wuling.app.data.api.WulingAPI$getMqttCredentials$2(this, p6, p7, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.L$1 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p7);
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                p6 = ((String) v0_2.L$0);
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- queryAllCar-IoAF18A(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object queryAllCar-IoAF18A(kotlin.coroutines.Continuation p6)
+    {
+        String v0_2;
+        if (!(p6 instanceof com.wuling.app.data.api.WulingAPI$queryAllCar$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$queryAllCar$1(this, p6);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$queryAllCar$1) p6);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$queryAllCar$1) p6).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$queryAllCar$1) p6).label = (v1_2 - -2147483648);
+            }
+        }
+        Object v6_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$queryAllCar$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v6_1);
+            com.wuling.app.data.api.WulingAPI$queryAllCar$2 v2_2 = new com.wuling.app.data.api.WulingAPI$queryAllCar$2(this, 0);
+            v0_2.label = 1;
+            v6_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v6_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v6_1);
+            }
+        }
+        return ((kotlin.Result) v6_1).unbox-impl();
+    }
+
+
+---- queryChargeReserve-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object queryChargeReserve-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$queryChargeReserve$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$queryChargeReserve$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$queryChargeReserve$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$queryChargeReserve$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$queryChargeReserve$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$queryChargeReserve$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$queryChargeReserve$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$queryChargeReserve$2 v2_2 = new com.wuling.app.data.api.WulingAPI$queryChargeReserve$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- queryDefaultCarStatus-IoAF18A(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object queryDefaultCarStatus-IoAF18A(kotlin.coroutines.Continuation p6)
+    {
+        String v0_2;
+        if (!(p6 instanceof com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$1(this, p6);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$1) p6);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$1) p6).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$1) p6).label = (v1_2 - -2147483648);
+            }
+        }
+        Object v6_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v6_1);
+            com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$2 v2_2 = new com.wuling.app.data.api.WulingAPI$queryDefaultCarStatus$2(this, 0);
+            v0_2.label = 1;
+            v6_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v6_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v6_1);
+            }
+        }
+        return ((kotlin.Result) v6_1).unbox-impl();
+    }
+
+
+---- queryTirePressure-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object queryTirePressure-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$queryTirePressure$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$queryTirePressure$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$queryTirePressure$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$queryTirePressure$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$queryTirePressure$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$queryTirePressure$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$queryTirePressure$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$queryTirePressure$2 v2_2 = new com.wuling.app.data.api.WulingAPI$queryTirePressure$2(p6, this, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- reserveCharge-yxL6bBk(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object reserveCharge-yxL6bBk(String p12, String p13, String p14, int p15, kotlin.coroutines.Continuation p16)
+    {
+        String v1_1;
+        if (!(p16 instanceof com.wuling.app.data.api.WulingAPI$reserveCharge$1)) {
+            v1_1 = new com.wuling.app.data.api.WulingAPI$reserveCharge$1(this, p16);
+        } else {
+            v1_1 = ((com.wuling.app.data.api.WulingAPI$reserveCharge$1) p16);
+            String v2_4 = ((com.wuling.app.data.api.WulingAPI$reserveCharge$1) p16).label;
+            if ((v2_4 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$reserveCharge$1) p16).label = (v2_4 - -2147483648);
+            }
+        }
+        Object v0_1 = v1_1.result;
+        Object v9 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        String v2_1 = v1_1.label;
+        if (v2_1 == null) {
+            kotlin.ResultKt.throwOnFailure(v0_1);
+            String v2_3 = new com.wuling.app.data.api.WulingAPI$reserveCharge$2(this, p13, p14, p15, p12, 0);
+            v1_1.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p12);
+            v1_1.L$1 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p13);
+            v1_1.L$2 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p14);
+            v1_1.I$0 = p15;
+            v1_1.label = 1;
+            v0_1 = m4.G.q(t4.d.b, v2_3, v1_1);
+            if (v0_1 == v9) {
+                return v9;
+            }
+        } else {
+            if (v2_1 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                String v2 = ((String) v1_1.L$1);
+                kotlin.ResultKt.throwOnFailure(v0_1);
+            }
+        }
+        return ((kotlin.Result) v0_1).unbox-impl();
+    }
+
+
+---- reverseGeocode-BWLJW6A(D D Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object reverseGeocode-BWLJW6A(double p13, double p15, String p17, kotlin.coroutines.Continuation p18)
+    {
+        String v1_1;
+        if (!(p18 instanceof com.wuling.app.data.api.WulingAPI$reverseGeocode$1)) {
+            v1_1 = new com.wuling.app.data.api.WulingAPI$reverseGeocode$1(this, p18);
+        } else {
+            v1_1 = ((com.wuling.app.data.api.WulingAPI$reverseGeocode$1) p18);
+            com.wuling.app.data.api.WulingAPI$reverseGeocode$2 v2_4 = ((com.wuling.app.data.api.WulingAPI$reverseGeocode$1) p18).label;
+            if ((v2_4 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$reverseGeocode$1) p18).label = (v2_4 - -2147483648);
+            }
+        }
+        Object v0_1 = v1_1.result;
+        Object v10 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$reverseGeocode$2 v2_1 = v1_1.label;
+        if (v2_1 == null) {
+            kotlin.ResultKt.throwOnFailure(v0_1);
+            com.wuling.app.data.api.WulingAPI$reverseGeocode$2 v2_3 = new com.wuling.app.data.api.WulingAPI$reverseGeocode$2(p13, p15, p17, this, 0);
+            v1_1.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p17);
+            v1_1.D$0 = p13;
+            v1_1.D$1 = p15;
+            v1_1.label = 1;
+            v0_1 = m4.G.q(t4.d.b, v2_3, v1_1);
+            if (v0_1 == v10) {
+                return v10;
+            }
+        } else {
+            if (v2_1 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v0_1);
+            }
+        }
+        return ((kotlin.Result) v0_1).unbox-impl();
+    }
+
+
+---- searchCar-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object searchCar-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$searchCar$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$searchCar$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$searchCar$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$searchCar$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$searchCar$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$searchCar$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$searchCar$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$searchCar$2 v2_2 = new com.wuling.app.data.api.WulingAPI$searchCar$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+---- sendCommand-0E7RQCE(Ljava/lang/String; Ljava/util/Map; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object sendCommand-0E7RQCE(String p6, java.util.Map p7, kotlin.coroutines.Continuation p8)
+    {
+        com.wuling.app.data.api.WulingAPI$sendCommand$1 v0_2;
+        if (!(p8 instanceof com.wuling.app.data.api.WulingAPI$sendCommand$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$sendCommand$1(this, p8);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$sendCommand$1) p8);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$sendCommand$1) p8).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$sendCommand$1) p8).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v8_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$sendCommand$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v8_1);
+            com.wuling.app.data.api.WulingAPI$sendCommand$2 v2_2 = new com.wuling.app.data.api.WulingAPI$sendCommand$2(this, p7, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.L$1 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p7);
+            v0_2.label = 1;
+            v8_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v8_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                p6 = ((String) v0_2.L$0);
+                kotlin.ResultKt.throwOnFailure(v8_1);
+            }
+        }
+        return ((kotlin.Result) v8_1).unbox-impl();
+    }
+
+
+---- setTokenInvalidCallback(Lcom/wuling/app/data/api/WulingAPI$TokenInvalidCallback;)V
+
+    public final void setTokenInvalidCallback(com.wuling.app.data.api.WulingAPI$TokenInvalidCallback p1)
+    {
+        this.tokenInvalidCallback = p1;
+        return;
+    }
+
+
+---- switchFavoriteCar-gIAlu-s(Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public final Object switchFavoriteCar-gIAlu-s(String p6, kotlin.coroutines.Continuation p7)
+    {
+        com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1 v0_2;
+        if (!(p7 instanceof com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1)) {
+            v0_2 = new com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1(this, p7);
+        } else {
+            v0_2 = ((com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1) p7);
+            Object v1_2 = ((com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1) p7).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.api.WulingAPI$switchFavoriteCar$1) p7).label = (v1_2 - -2147483648);
+            }
+        }
+        kotlin.Result v7_1 = v0_2.result;
+        Object v1_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        com.wuling.app.data.api.WulingAPI$switchFavoriteCar$2 v2_0 = v0_2.label;
+        if (v2_0 == null) {
+            kotlin.ResultKt.throwOnFailure(v7_1);
+            com.wuling.app.data.api.WulingAPI$switchFavoriteCar$2 v2_2 = new com.wuling.app.data.api.WulingAPI$switchFavoriteCar$2(this, p6, 0);
+            v0_2.L$0 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p6);
+            v0_2.label = 1;
+            v7_1 = m4.G.q(t4.d.b, v2_2, v0_2);
+            if (v7_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                kotlin.ResultKt.throwOnFailure(v7_1);
+            }
+        }
+        return ((kotlin.Result) v7_1).unbox-impl();
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/data/api/WulingLoginHelper; 父:Ljava/lang/Object;
+==========================================================================================
+
+---- <clinit>()V
+
+    static WulingLoginHelper()
+    {
+        int v0_1 = new com.wuling.app.data.api.WulingLoginHelper();
+        com.wuling.app.data.api.WulingLoginHelper.INSTANCE = v0_1;
+        com.wuling.app.data.api.WulingLoginHelper.AES_KEY = v0_1.hexToBytes("F6F472F595B511EA9237685B35A8F866");
+        com.wuling.app.data.api.WulingLoginHelper.AES_IV = v0_1.hexToBytes("00000000000000000000000000000000");
+        com.wuling.app.data.api.WulingLoginHelper.deviceState = "";
+        com.wuling.app.data.api.WulingLoginHelper.deviceImei = "";
+        com.wuling.app.data.api.WulingLoginHelper.deviceMac = "";
+        com.wuling.app.data.api.WulingLoginHelper.devicePayloadModel = "";
+        com.wuling.app.data.api.WulingLoginHelper.devicePayloadImei = "";
+        com.wuling.app.data.api.WulingLoginHelper.deviceHeaderModel = "";
+        com.wuling.app.data.api.WulingLoginHelper.deviceHeaderBrand = "";
+        com.wuling.app.data.api.WulingLoginHelper.deviceMod = "";
+        kotlin.Triple v1_1 = new kotlin.Triple("Pixel 4 XL", "Pixel 4", "Google");
+        new kotlin.Triple("Pixel 6 Pro", "Pixel 6", "Google");
+        new kotlin.Triple("Samsung Galaxy S21", "SM-G991B", "samsung");
+        new kotlin.Triple("Samsung Galaxy S22", "SM-S901B", "samsung");
+        new kotlin.Triple("Xiaomi 12", "2201123C", "Xiaomi");
+        new kotlin.Triple("Redmi Note 11", "2201117TG", "Redmi");
+        new kotlin.Triple("HUAWEI P50", "ABR-AL00", "HUAWEI");
+        new kotlin.Triple("OPPO Find X5", "PFEM00", "OPPO");
+        new kotlin.Triple("vivo X80", "V2183A", "vivo");
+        new kotlin.Triple("OnePlus 9", "LE2110", "OnePlus");
+        new kotlin.Triple("Pixel 7 Pro", "Pixel 7", "Google");
+        com.wuling.app.data.api.WulingLoginHelper.devicePool = kotlin.collections.CollectionsKt.listOf(new kotlin.Triple[] {v1_1, new kotlin.Triple("Samsung Galaxy S23", "SM-S911B", "samsung")}));
+        com.wuling.app.data.api.WulingLoginHelper.$stable = 8;
+        return;
+    }
+
+
+---- <init>()V
+
+    private WulingLoginHelper()
+    {
+        return;
+    }
+
+
+---- a(Ljava/lang/String; Ljavax/net/ssl/SSLSession;)Z
+
+    public static synthetic boolean a(String p0, javax.net.ssl.SSLSession p1)
+    {
+        return com.wuling.app.data.api.WulingLoginHelper.createTrustAllClient$lambda$3(p0, p1);
+    }
+
+
+---- aesDecrypt(Ljava/lang/String;)Ljava/lang/String;
+
+    private final String aesDecrypt(String p6)
+    {
+        Throwable v6_1 = kotlin.text.StringsKt.L(p6, "\\/", "/");
+        if (kotlin.text.StringsKt.U(v6_1, "M")) {
+            v6_1 = v6_1.substring(1);
+            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v6_1, "substring(...)");
+        }
+        Throwable v6_2 = android.util.Base64.decode(v6_1, 0);
+        Throwable v1_2 = new javax.crypto.spec.SecretKeySpec(com.wuling.app.data.api.WulingLoginHelper.AES_KEY, "AES");
+        java.nio.charset.Charset v2_2 = new javax.crypto.spec.IvParameterSpec(com.wuling.app.data.api.WulingLoginHelper.AES_IV);
+        javax.crypto.Cipher v3_3 = javax.crypto.Cipher.getInstance("AES/CBC/PKCS5Padding");
+        v3_3.init(2, v1_2, v2_2);
+        Throwable v6_3 = v3_3.doFinal(v6_2);
+        kotlin.jvm.internal.Intrinsics.checkNotNull(v6_3);
+        java.nio.charset.Charset v2_3 = kotlin.text.Charsets.UTF_8;
+        Throwable v1_4 = new String(v6_3, v2_3);
+        if (!kotlin.text.StringsKt.U(v1_4, "H4sI")) {
+            return v1_4;
+        } else {
+            Throwable v6_6 = android.util.Base64.decode(v1_4, 0);
+            kotlin.jvm.internal.Intrinsics.checkNotNull(v6_6);
+            java.io.BufferedReader v0_7 = new java.io.BufferedReader(new java.io.InputStreamReader(new java.util.zip.GZIPInputStream(new java.io.ByteArrayInputStream(v6_6)), v2_3), 8192);
+            try {
+                Throwable v6_9 = kotlin.io.TextStreamsKt.readText(v0_7);
+                kotlin.io.CloseableKt.closeFinally(v0_7, 0);
+                return v6_9;
+            } catch (Throwable v6_10) {
+                try {
+                    throw v6_10;
+                } catch (Throwable v1_9) {
+                    kotlin.io.CloseableKt.closeFinally(v0_7, v6_10);
+                    throw v1_9;
+                }
+            }
+        }
+    }
+
+
+---- b(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence b(byte p0)
+    {
+        return com.wuling.app.data.api.WulingLoginHelper.generateMac$lambda$1(p0);
+    }
+
+
+---- createTrustAllClient()LC4/D;
+
+    private final C4.D createTrustAllClient()
+    {
+        long v1_3 = new javax.net.ssl.TrustManager[1];
+        v1_3[0] = new com.wuling.app.data.api.WulingLoginHelper$createTrustAllClient$trustManagers$1();
+        C4.D v0_15 = javax.net.ssl.SSLContext.getInstance("TLS");
+        v0_15.init(0, v1_3, new java.security.SecureRandom());
+        C4.C v3_2 = new C4.C();
+        C4.D v0_2 = v0_15.getSocketFactory();
+        kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v0_2, "getSocketFactory(...)");
+        long v1_0 = v1_3[0];
+        kotlin.jvm.internal.Intrinsics.checkNotNull(v1_0, "null cannot be cast to non-null type javax.net.ssl.X509TrustManager");
+        long v1_2 = ((javax.net.ssl.X509TrustManager) v1_0);
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v0_2, "sslSocketFactory");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_2, "trustManager");
+        if ((!kotlin.jvm.internal.Intrinsics.areEqual(v0_2, v3_2.o)) || (!kotlin.jvm.internal.Intrinsics.areEqual(v1_2, v3_2.p))) {
+            v3_2.A = 0;
+        }
+        v3_2.o = v0_2;
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v1_2, "trustManager");
+        v3_2.u = K4.n.a.b(v1_2);
+        v3_2.p = v1_2;
+        C4.D v0_6 = new com.wuling.app.data.api.b();
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v0_6, "hostnameVerifier");
+        if (!kotlin.jvm.internal.Intrinsics.areEqual(v0_6, v3_2.s)) {
+            v3_2.A = 0;
+        }
+        v3_2.s = v0_6;
+        C4.D v0_10 = kotlin.collections.CollectionsKt.listOf(new C4.l[] {C4.l.e, C4.l.f, C4.l.g}));
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(v0_10, "connectionSpecs");
+        if (!kotlin.jvm.internal.Intrinsics.areEqual(v0_10, v3_2.q)) {
+            v3_2.A = 0;
+        }
+        v3_2.q = D4.d.y(v0_10);
+        C4.D v0_12 = java.util.concurrent.TimeUnit.SECONDS;
+        v3_2.a(30, v0_12);
+        v3_2.b(30, v0_12);
+        v3_2.c(30, v0_12);
+        return new C4.D(v3_2);
+    }
+
+
+---- createTrustAllClient$lambda$3(Ljava/lang/String; Ljavax/net/ssl/SSLSession;)Z
+
+    private static final boolean createTrustAllClient$lambda$3(String p0, javax.net.ssl.SSLSession p1)
+    {
+        return 1;
+    }
+
+
+---- generateImei()Ljava/lang/String;
+
+    private final String generateImei()
+    {
+        int v0_1 = new java.security.SecureRandom();
+        StringBuilder v2_2 = new int[14];
+        int v3_1 = 0;
+        int v4_1 = 0;
+        while (v4_1 < 14) {
+            v2_2[v4_1] = v0_1.nextInt(10);
+            v4_1++;
+        }
+        int v0_6 = 0;
+        while (v3_1 < 14) {
+            int v4_0 = v2_2[v3_1];
+            if ((v3_1 % 2) == 0) {
+                v4_0 *= 2;
+                if (v4_0 > 9) {
+                    v4_0 -= 9;
+                }
+            }
+            v0_6 += v4_0;
+            v3_1++;
+        }
+        int v0_4 = ((10 - (v0_6 % 10)) % 10);
+        String v1_1 = kotlin.collections.ArraysKt.A(v2_2, 0, 62);
+        StringBuilder v2_1 = new StringBuilder();
+        v2_1.append(v1_1);
+        v2_1.append(v0_4);
+        return v2_1.toString();
+    }
+
+
+---- generateMac()Ljava/lang/String;
+
+    private final String generateMac()
+    {
+        String v0_1 = new java.security.SecureRandom();
+        byte[] v2 = new byte[6];
+        int v4_1 = 0;
+        while (v4_1 < 6) {
+            v2[v4_1] = ((byte) v0_1.nextInt(256));
+            v4_1++;
+        }
+        v2[0] = ((byte) ((v2[0] & 254) | 2));
+        return kotlin.collections.ArraysKt.z(v2, ":", 0, 0, 0, new com.wuling.app.data.api.a(3), 30);
+    }
+
+
+---- generateMac$lambda$1(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence generateMac$lambda$1(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02X", "format(...)");
+    }
+
+
+---- generateRandomLetters(I)Ljava/lang/String;
+
+    private final String generateRandomLetters(int p10)
+    {
+        java.util.List v0_1 = kotlin.collections.CollectionsKt.plus(kotlin.collections.CollectionsKt.v(new kotlin.ranges.CharRange(97, 122), new kotlin.ranges.CharRange(65, 90)), new kotlin.ranges.CharRange(48, 57));
+        Character v1_4 = new kotlin.ranges.IntRange(1, p10);
+        java.util.ArrayList v3_2 = new java.util.ArrayList(kotlin.collections.CollectionsKt.k(v1_4));
+        String v10_2 = v1_4.iterator();
+        while (v10_2.hasNext()) {
+            ((kotlin.collections.IntIterator) v10_2).nextInt();
+            Character v1_11 = ((Character) kotlin.collections.CollectionsKt.w(v0_1, kotlin.random.Random.Default));
+            v1_11.getClass();
+            v3_2.add(v1_11);
+        }
+        return kotlin.collections.CollectionsKt.r(v3_2, "", 0, 0, 0, 62);
+    }
+
+
+---- hexToBytes(Ljava/lang/String;)[B
+
+    private final byte[] hexToBytes(String p8)
+    {
+        int v0 = p8.length();
+        byte[] v1_1 = new byte[(v0 / 2)];
+        int v2 = 0;
+        while (v2 < v0) {
+            v1_1[(v2 / 2)] = ((byte) (Character.digit(p8.charAt((v2 + 1)), 16) + (Character.digit(p8.charAt(v2), 16) << 4)));
+            v2 += 2;
+        }
+        return v1_1;
+    }
+
+
+---- markAccountLogin(Landroid/content/Context;)V
+
+    private final void markAccountLogin(android.content.Context p3)
+    {
+        p3.getSharedPreferences("wuling_login_device", 0).edit().putBoolean("login_by_account", 1).apply();
+        return;
+    }
+
+
+---- clearAccountLoginMark(Landroid/content/Context;)V
+
+    public final void clearAccountLoginMark(android.content.Context p3)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p3, "context");
+        p3.getSharedPreferences("wuling_login_device", 0).edit().putBoolean("login_by_account", 0).apply();
+        return;
+    }
+
+
+---- init(Landroid/content/Context;)V
+
+    public final void init(android.content.Context p11)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p11, "context");
+        if (!com.wuling.app.data.api.WulingLoginHelper.initialized) {
+            int v11_4 = p11.getSharedPreferences("wuling_login_device", 0);
+            if (!v11_4.contains("device_imei")) {
+                String v1_3 = ((kotlin.Triple) kotlin.collections.CollectionsKt.w(com.wuling.app.data.api.WulingLoginHelper.devicePool, kotlin.random.Random.Default));
+                com.wuling.app.data.api.WulingLoginHelper.deviceState = this.generateRandomLetters(16);
+                com.wuling.app.data.api.WulingLoginHelper.deviceImei = this.generateImei();
+                com.wuling.app.data.api.WulingLoginHelper.deviceMac = this.generateMac();
+                com.wuling.app.data.api.WulingLoginHelper.devicePayloadModel = ((String) v1_3.getFirst());
+                com.wuling.app.data.api.WulingLoginHelper.devicePayloadImei = "unknown";
+                com.wuling.app.data.api.WulingLoginHelper.deviceHeaderModel = ((String) v1_3.getSecond());
+                com.wuling.app.data.api.WulingLoginHelper.deviceHeaderBrand = ((String) v1_3.getThird());
+                com.wuling.app.data.api.WulingLoginHelper.deviceMod = ((String) v1_3.getThird());
+                int v11_3 = v11_4.edit();
+                v11_3.putString("device_state", com.wuling.app.data.api.WulingLoginHelper.deviceState);
+                v11_3.putString("device_imei", com.wuling.app.data.api.WulingLoginHelper.deviceImei);
+                v11_3.putString("device_mac", com.wuling.app.data.api.WulingLoginHelper.deviceMac);
+                v11_3.putString("device_payload_model", com.wuling.app.data.api.WulingLoginHelper.devicePayloadModel);
+                v11_3.putString("device_payload_imei", com.wuling.app.data.api.WulingLoginHelper.devicePayloadImei);
+                v11_3.putString("device_header_model", com.wuling.app.data.api.WulingLoginHelper.deviceHeaderModel);
+                v11_3.putString("device_header_brand", com.wuling.app.data.api.WulingLoginHelper.deviceHeaderBrand);
+                v11_3.putString("device_mod", com.wuling.app.data.api.WulingLoginHelper.deviceMod);
+                v11_3.apply();
+            } else {
+                String v8_1 = v11_4.getString("device_state", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v8_1);
+                com.wuling.app.data.api.WulingLoginHelper.deviceState = v8_1;
+                String v0_9 = v11_4.getString("device_imei", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_9);
+                com.wuling.app.data.api.WulingLoginHelper.deviceImei = v0_9;
+                String v0_11 = v11_4.getString("device_mac", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_11);
+                com.wuling.app.data.api.WulingLoginHelper.deviceMac = v0_11;
+                String v0_12 = v11_4.getString("device_payload_model", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_12);
+                com.wuling.app.data.api.WulingLoginHelper.devicePayloadModel = v0_12;
+                String v0_13 = v11_4.getString("device_payload_imei", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_13);
+                com.wuling.app.data.api.WulingLoginHelper.devicePayloadImei = v0_13;
+                String v0_14 = v11_4.getString("device_header_model", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_14);
+                com.wuling.app.data.api.WulingLoginHelper.deviceHeaderModel = v0_14;
+                String v0_15 = v11_4.getString("device_header_brand", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_15);
+                com.wuling.app.data.api.WulingLoginHelper.deviceHeaderBrand = v0_15;
+                int v11_1 = v11_4.getString("device_mod", "");
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v11_1);
+                com.wuling.app.data.api.WulingLoginHelper.deviceMod = v11_1;
+            }
+            com.wuling.app.data.api.WulingLoginHelper.initialized = 1;
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+---- isLoggedInByAccount(Landroid/content/Context;)Z
+
+    public final boolean isLoggedInByAccount(android.content.Context p3)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p3, "context");
+        return p3.getSharedPreferences("wuling_login_device", 0).getBoolean("login_by_account", 0);
+    }
+
+
+---- login-0E7RQCE(Ljava/lang/String; Ljava/lang/String; Landroid/content/Context;)Ljava/lang/Object;
+
+    public final Object login-0E7RQCE(String p11, String p12, android.content.Context p13)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p11, "mobile");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p12, "password");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p13, "context");
+        if (com.wuling.app.data.api.WulingLoginHelper.initialized) {
+            String v7_2 = new org.json.JSONObject();
+            v7_2.put("mobile", p11);
+            v7_2.put("password", p12);
+            v7_2.put("deviceState", com.wuling.app.data.api.WulingLoginHelper.deviceState);
+            v7_2.put("deviceImei", com.wuling.app.data.api.WulingLoginHelper.deviceImei);
+            v7_2.put("devicePayloadImei", com.wuling.app.data.api.WulingLoginHelper.devicePayloadImei);
+            v7_2.put("deviceMac", com.wuling.app.data.api.WulingLoginHelper.deviceMac);
+            v7_2.put("devicePayloadModel", com.wuling.app.data.api.WulingLoginHelper.devicePayloadModel);
+            v7_2.put("deviceHeaderModel", com.wuling.app.data.api.WulingLoginHelper.deviceHeaderModel);
+            v7_2.put("deviceHeaderBrand", com.wuling.app.data.api.WulingLoginHelper.deviceHeaderBrand);
+            v7_2.put("deviceMod", com.wuling.app.data.api.WulingLoginHelper.deviceMod);
+            String v11_59 = this.createTrustAllClient();
+            Exception v12_37 = v7_2.toString();
+            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v12_37, "toString(...)");
+            Exception v12_38 = W1.f.s(v12_37, C4.y.a("application/json; charset=utf-8"));
+            String v5_7 = new b4.b();
+            v5_7.s("https://50car.vip/login");
+            v5_7.f("Content-Type", "application/json");
+            v5_7.p(v12_38);
+            Exception v12_41 = v11_59.b(v5_7.g()).f();
+            String v5_8 = v12_41.e;
+            String v6_8;
+            String v6_6 = v12_41.h;
+            if (v6_6 == null) {
+                v6_8 = "";
+            } else {
+                v6_8 = v6_6.m();
+            }
+            if (v12_41.c()) {
+                Exception v12_44 = new org.json.JSONObject(v6_8);
+                String v3_6 = v12_44.optBoolean("success", 0);
+                String v4_1 = v12_44.optString("error", "");
+                if (v3_6 != null) {
+                    String v3_7 = v12_44.optString("sd", "");
+                    Exception v12_45 = v12_44.optJSONObject("headers");
+                    kotlin.jvm.internal.Intrinsics.checkNotNull(v3_7);
+                    if (v3_7.length() != 0) {
+                        if (v12_45 != null) {
+                            String v4_7 = new b4.b();
+                            v4_7.s("https://api.00bang.cn/llb/oauth/llb/ucenter/login");
+                            String v5_0 = v12_45.keys();
+                            kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v5_0, "keys(...)");
+                            while (v5_0.hasNext()) {
+                                String v6_3 = ((String) v5_0.next());
+                                kotlin.jvm.internal.Intrinsics.checkNotNull(v6_3);
+                                String v8_0 = v12_45.getString(v6_3);
+                                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v8_0, "getString(...)");
+                                v4_7.f(v6_3, v8_0);
+                            }
+                            Exception v12_7;
+                            Exception v12_2 = new StringBuilder();
+                            v12_2.append("sd=");
+                            v12_2.append(v3_7);
+                            v4_7.p(W1.f.s(v12_2.toString(), C4.y.a("application/x-www-form-urlencoded; charset=utf-8")));
+                            String v11_2 = v11_59.b(v4_7.g()).f();
+                            Exception v12_6 = v11_2.h;
+                            if (v12_6 == null) {
+                                v12_7 = "";
+                            } else {
+                                v12_7 = v12_6.m();
+                            }
+                            if (v11_2.c()) {
+                                String v11_4 = new org.json.JSONObject(v12_7);
+                                Exception v12_8 = v11_4.optString("sd", "");
+                                kotlin.jvm.internal.Intrinsics.checkNotNull(v12_8);
+                                if (v12_8.length() != 0) {
+                                    Exception v12_10 = new org.json.JSONObject(this.aesDecrypt(v12_8));
+                                    String v11_6 = v12_10.optString("accessToken", "");
+                                    if (v11_6.length() == 0) {
+                                        v11_6 = v12_10.optString("access_token", "");
+                                        if (v11_6.length() == 0) {
+                                            String v1_1;
+                                            String v11_8 = v12_10.optJSONObject("data");
+                                            if (v11_8 == null) {
+                                                v1_1 = "";
+                                            } else {
+                                                v1_1 = v11_8.optString("accessToken", "");
+                                                if (v1_1 == null) {
+                                                } else {
+                                                    if (v1_1.length() == 0) {
+                                                        v1_1 = v11_8.optString("access_token", "");
+                                                    }
+                                                    if (v1_1 == null) {
+                                                    }
+                                                }
+                                            }
+                                            v11_6 = v1_1;
+                                        }
+                                    }
+                                    kotlin.jvm.internal.Intrinsics.checkNotNull(v11_6);
+                                    if (v11_6.length() <= 0) {
+                                        String v11_10 = v12_10.optString("errorMessage", "");
+                                        if (v11_10.length() == 0) {
+                                            v11_10 = v12_10.optString("message", "\u672a\u77e5\u9519\u8bef");
+                                        }
+                                        return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception(X3.i.l(v11_10))));
+                                    } else {
+                                        this.markAccountLogin(p13);
+                                        return kotlin.Result.constructor-impl(v11_6);
+                                    }
+                                } else {
+                                    return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception(X3.i.l(v11_4.optString("errorMessage", v11_4.optString("message", "\u767b\u5f55\u5931\u8d25"))))));
+                                }
+                            } else {
+                                String v11_21 = v11_2.e;
+                                int v13_3 = new StringBuilder();
+                                v13_3.append("\u4e94\u83f1\u670d\u52a1\u5668\u9519\u8bef (");
+                                v13_3.append(v11_21);
+                                v13_3.append(")");
+                                return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception(v13_3.toString())));
+                            }
+                        }
+                    } else {
+                    }
+                    return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception("\u670d\u52a1\u5668\u8fd4\u56de\u6570\u636e\u4e0d\u5b8c\u6574")));
+                } else {
+                    if (v4_1.length() == 0) {
+                        v4_1 = "\u670d\u52a1\u5668\u8ba1\u7b97\u5931\u8d25";
+                    }
+                    return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception(v4_1)));
+                }
+            } else {
+                String v11_38 = new org.json.JSONObject(v6_8);
+                Exception v12_24 = new StringBuilder("HTTP ");
+                v12_24.append(v5_8);
+                String v11_39 = v11_38.optString("error", v12_24.toString());
+                return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception("\u670d\u52a1\u5668\u9519\u8bef: ".concat(X3.i.l(v11_39)))));
+            }
+        } else {
+            return kotlin.Result.constructor-impl(kotlin.ResultKt.createFailure(new Exception("\u8bf7\u5148\u8c03\u7528 init(context) \u521d\u59cb\u5316\u8bbe\u5907\u6307\u7eb9")));
+        }
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/data/mqtt/VehicleMqttManager; 父:Ljava/lang/Object;
+==========================================================================================
+
+---- <init>()V
+
+    public VehicleMqttManager()
+    {
+        this.TAG = "VehicleMqttManager";
+        this.scope = m4.D.a(kotlin.coroutines.CoroutineContext$Element$DefaultImpls.plus(m4.G.c(), t4.d.b));
+        this.currentVin = "";
+        this.currentUsername = "";
+        this.currentPassword = "";
+        this.shouldReconnect = new java.util.concurrent.atomic.AtomicBoolean(0);
+        this.isConnecting = new java.util.concurrent.atomic.AtomicBoolean(0);
+        this.CONNECTING_LOCK_TIMEOUT_MS = 60000;
+        this.CONNECT_TIMEOUT_MS = 15000;
+        int v0_10 = p4.C.b(com.wuling.app.data.mqtt.MqttConnectionState.DISCONNECTED);
+        this._connectionState = v0_10;
+        this.connectionState = new p4.x(v0_10);
+        this.maxRetries = 10;
+        return;
+    }
+
+
+---- a(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence a(byte p0)
+    {
+        return com.wuling.app.data.mqtt.VehicleMqttManager.handleMessage$lambda$2(p0);
+    }
+
+
+---- access$doConnect(Lcom/wuling/app/data/mqtt/VehicleMqttManager; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    public static final synthetic Object access$doConnect(com.wuling.app.data.mqtt.VehicleMqttManager p0, String p1, String p2, String p3, kotlin.coroutines.Continuation p4)
+    {
+        return p0.doConnect(p1, p2, p3, p4);
+    }
+
+
+---- access$getClient$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Lorg/eclipse/paho/client/mqttv3/MqttClient;
+
+    public static final synthetic org.eclipse.paho.client.mqttv3.MqttClient access$getClient$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0.client;
+    }
+
+
+---- access$getCurrentPassword$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Ljava/lang/String;
+
+    public static final synthetic String access$getCurrentPassword$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0.currentPassword;
+    }
+
+
+---- access$getCurrentUsername$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Ljava/lang/String;
+
+    public static final synthetic String access$getCurrentUsername$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0.currentUsername;
+    }
+
+
+---- access$getCurrentVin$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Ljava/lang/String;
+
+    public static final synthetic String access$getCurrentVin$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0.currentVin;
+    }
+
+
+---- access$getShouldReconnect$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Ljava/util/concurrent/atomic/AtomicBoolean;
+
+    public static final synthetic java.util.concurrent.atomic.AtomicBoolean access$getShouldReconnect$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0.shouldReconnect;
+    }
+
+
+---- access$get_connectionState$p(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)Lp4/v;
+
+    public static final synthetic p4.v access$get_connectionState$p(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        return p0._connectionState;
+    }
+
+
+---- access$handleMessage(Lcom/wuling/app/data/mqtt/VehicleMqttManager; Ljava/lang/String; Lorg/eclipse/paho/client/mqttv3/MqttMessage;)V
+
+    public static final synthetic void access$handleMessage(com.wuling.app.data.mqtt.VehicleMqttManager p0, String p1, org.eclipse.paho.client.mqttv3.MqttMessage p2)
+    {
+        p0.handleMessage(p1, p2);
+        return;
+    }
+
+
+---- access$scheduleReconnect(Lcom/wuling/app/data/mqtt/VehicleMqttManager;)V
+
+    public static final synthetic void access$scheduleReconnect(com.wuling.app.data.mqtt.VehicleMqttManager p0)
+    {
+        p0.scheduleReconnect();
+        return;
+    }
+
+
+---- b(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence b(byte p0)
+    {
+        return com.wuling.app.data.mqtt.VehicleMqttManager.handleParkingNotification$lambda$3(p0);
+    }
+
+
+---- c(B)Ljava/lang/CharSequence;
+
+    public static synthetic CharSequence c(byte p0)
+    {
+        return com.wuling.app.data.mqtt.VehicleMqttManager.handleAuthorizationNotification$lambda$6(p0);
+    }
+
+
+---- doConnect(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+    private final Object doConnect(String p17, String p18, String p19, kotlin.coroutines.Continuation p20)
+    {
+        int v3_1;
+        void v1 = this;
+        com.wuling.app.data.mqtt.MqttConnectionState v0_0 = p17;
+        if (!(p20 instanceof com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$1)) {
+            v3_1 = new com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$1(this, p20);
+        } else {
+            v3_1 = ((com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$1) p20);
+            Object v4_2 = ((com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$1) p20).label;
+            if ((v4_2 & -2147483648) == 0) {
+            } else {
+                ((com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$1) p20).label = (v4_2 - -2147483648);
+            }
+        }
+        com.wuling.app.data.mqtt.MqttConnectionState v2_7 = v3_1.result;
+        Object v4_1 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        Object v5_2 = v3_1.label;
+        try {
+            if (v5_2 == null) {
+                kotlin.ResultKt.throwOnFailure(v2_7);
+                if ((this.isConnecting.get()) && ((System.currentTimeMillis() - this.connectingTimestamp) > this.CONNECTING_LOCK_TIMEOUT_MS)) {
+                    this.isConnecting.set(0);
+                }
+                if (this.isConnecting.compareAndSet(0, 1)) {
+                    this.connectingTimestamp = System.currentTimeMillis();
+                    com.wuling.app.data.mqtt.MqttConnectionState v2_20 = this.shouldReconnect.get();
+                    Object v5_3 = this.currentVin;
+                    String v9_3 = this.currentUsername;
+                    String v10 = this.currentPassword;
+                    this.disconnect();
+                    this.shouldReconnect.set(v2_20);
+                    this.isConnecting.set(1);
+                    this.connectingTimestamp = System.currentTimeMillis();
+                    this.currentVin = v5_3;
+                    this.currentUsername = v9_3;
+                    this.currentPassword = v10;
+                    this.client = new org.eclipse.paho.client.mqttv3.MqttClient(com.wuling.app.data.mqtt.MqttConfig.INSTANCE.getBROKER_URL(), p17, 0);
+                    org.eclipse.paho.client.mqttv3.MqttConnectOptions v11_8 = new org.eclipse.paho.client.mqttv3.MqttConnectOptions();
+                    v11_8.setUserName(p18);
+                    long v13_0 = p19.toCharArray();
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v13_0, "toCharArray(...)");
+                    v11_8.setPassword(v13_0);
+                    v11_8.setAutomaticReconnect(0);
+                    v11_8.setCleanSession(1);
+                    v11_8.setConnectionTimeout(15);
+                    v11_8.setKeepAliveInterval(60);
+                    v11_8.setMqttVersion(4);
+                    long v13_4 = this.CONNECT_TIMEOUT_MS;
+                    com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$2 v15_1 = new com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$2(this, v11_8, 0);
+                    v3_1.L$0 = p17;
+                    v3_1.L$1 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p18);
+                    v3_1.L$2 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(p19);
+                    v3_1.L$3 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(v5_3);
+                    v3_1.L$4 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(v9_3);
+                    v3_1.L$5 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(v10);
+                    v3_1.L$6 = kotlin.coroutines.jvm.internal.SpillingKt.nullOutSpilledVariable(v11_8);
+                    v3_1.Z$0 = v2_20;
+                    v3_1.label = 1;
+                    if (m4.M0.b(v13_4, v15_1, v3_1) != v4_1) {
+                        this.retryCount = 0;
+                        ((p4.M) this._connectionState).i(com.wuling.app.data.mqtt.MqttConnectionState.CONNECTED);
+                        com.wuling.app.data.mqtt.MqttConnectionState v2_4 = this.client;
+                        if (v2_4 != null) {
+                            v2_4.setCallback(new com.wuling.app.data.mqtt.VehicleMqttManager$doConnect$3(this));
+                        }
+                        com.wuling.app.data.mqtt.MqttConnectionState v2_6 = kotlin.text.StringsKt.g0(v0_0, "_");
+                        if (v2_6.length() != 0) {
+                            v0_0 = v2_6;
+                        } else {
+                        }
+                        v1 = this.subscribeTopics(v0_0);
+                    } else {
+                        return v4_1;
+                    }
+                } else {
+                    return kotlin.Unit.INSTANCE;
+                }
+            } else {
+                if (v5_2 != 1) {
+                    throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+                } else {
+                    com.wuling.app.data.mqtt.MqttConnectionState v0 = ((String) v3_1.L$5);
+                    v0 = ((String) v3_1.L$3);
+                    v0 = ((String) v3_1.L$1);
+                    v0_0 = ((String) v3_1.L$0);
+                    kotlin.ResultKt.throwOnFailure(v2_7);
+                }
+            }
+        } catch (com.wuling.app.data.mqtt.MqttConnectionState v0_25) {
+            v1.isConnecting.set(0);
+            throw v0_25;
+        }
+        v1.isConnecting.set(0);
+        return kotlin.Unit.INSTANCE;
+    }
+
+
+---- handleAuthorizationNotification(Ljava/lang/String; [B)V
+
+    private final void handleAuthorizationNotification(String p10, byte[] p11)
+    {
+        kotlin.text.StringsKt.c0(p10, "/");
+        String v11_6 = kotlin.collections.ArraysKt.z(p11, " ", 0, 0, 0, new W.a(20), 30);
+        try {
+            String v0_6 = new String(p11, kotlin.text.Charsets.UTF_8);
+        } catch (Exception) {
+            v0_6 = "";
+        }
+        Object v3_1 = v0_6;
+        X3.c.d("AUTH_NOTIFY", "=== \u8f66\u8f86\u6388\u6743\u901a\u77e5 ===", 0);
+        String v0_9 = new StringBuilder("\u4e3b\u9898: ");
+        v0_9.append(p10);
+        X3.c.d("AUTH_NOTIFY", v0_9.toString(), 0);
+        org.json.JSONObject v10_3 = new StringBuilder("HEX: ");
+        v10_3.append(v11_6);
+        X3.c.d("AUTH_NOTIFY", v10_3.toString(), 0);
+        X3.c.d("AUTH_NOTIFY", "\u6587\u672c: ".concat(v3_1), 0);
+        try {
+            org.json.JSONObject v10_7 = this.parseProtobuf(p11);
+        } catch (String v0_12) {
+            org.json.JSONObject v10_11 = v0_12.getMessage();
+            String v11_11 = new StringBuilder("Protobuf\u89e3\u6790\u5931\u8d25: ");
+            v11_11.append(v10_11);
+            X3.c.f("AUTH_NOTIFY", v11_11.toString());
+        }
+        if (v10_7.isEmpty()) {
+            try {
+                if ((kotlin.text.StringsKt.U(v3_1, "{")) || (kotlin.text.StringsKt.U(v3_1, "["))) {
+                    org.json.JSONObject v10_18 = new org.json.JSONObject(v3_1);
+                    X3.c.d("AUTH_NOTIFY", "JSON\u6570\u636e:", 0);
+                    String v11_13 = v10_18.keys();
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v11_13, "keys(...)");
+                    while (v11_13.hasNext()) {
+                        String v0_17 = ((String) v11_13.next());
+                        Object v3_3 = v10_18.get(v0_17);
+                        StringBuilder v6_5 = new StringBuilder();
+                        v6_5.append("  ");
+                        v6_5.append(v0_17);
+                        v6_5.append(": ");
+                        v6_5.append(v3_3);
+                        X3.c.d("AUTH_NOTIFY", v6_5.toString(), 0);
+                    }
+                }
+            } catch (Exception) {
+            }
+            org.json.JSONObject v10_19 = this.onAuthorizationUpdate;
+            if (v10_19 != null) {
+                v10_19.invoke(p11);
+            }
+            return;
+        } else {
+            X3.c.d("AUTH_NOTIFY", "Protobuf\u5b57\u6bb5:", 0);
+            org.json.JSONObject v10_9 = v10_7.entrySet().iterator();
+            while (v10_9.hasNext()) {
+                String v11_2 = ((java.util.Map$Entry) v10_9.next());
+                String v0_4 = ((Number) v11_2.getKey()).intValue();
+                String v11_4 = ((String) v11_2.getValue());
+                StringBuilder v6_1 = new StringBuilder();
+                v6_1.append("  \u5b57\u6bb5");
+                v6_1.append(v0_4);
+                v6_1.append(": ");
+                v6_1.append(v11_4);
+                X3.c.d("AUTH_NOTIFY", v6_1.toString(), 0);
+            }
+        }
+    }
+
+
+---- handleAuthorizationNotification$lambda$6(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence handleAuthorizationNotification$lambda$6(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02X", "format(...)");
+    }
+
+
+---- handleMessage(Ljava/lang/String; Lorg/eclipse/paho/client/mqttv3/MqttMessage;)V
+
+    private final void handleMessage(String p8, org.eclipse.paho.client.mqttv3.MqttMessage p9)
+    {
+        String v0_0 = p9.getPayload();
+        if (!kotlin.text.StringsKt.u(p8, "/app/status")) {
+            if (!kotlin.text.StringsKt.p(p8, "car_parking_notify")) {
+                if (!kotlin.text.StringsKt.p(p8, "car_check_authorize")) {
+                    String v8_1 = kotlin.text.StringsKt.c0(p8, "/");
+                    kotlin.jvm.internal.Intrinsics.checkNotNull(v0_0);
+                    StringBuilder v9_6 = kotlin.collections.ArraysKt.z(v0_0, " ", 0, 0, 0, new W.a(18), 30);
+                    try {
+                        String v1_2 = new String(v0_0, kotlin.text.Charsets.UTF_8);
+                    } catch (Exception) {
+                        v1_2 = "";
+                    }
+                    String v0_1 = v0_0.length;
+                    int v2_3 = new StringBuilder("[");
+                    v2_3.append(v8_1);
+                    v2_3.append("] hex(");
+                    v2_3.append(v0_1);
+                    v2_3.append("): ");
+                    v2_3.append(v9_6);
+                    X3.c.d("MQTT_DEBUG", v2_3.toString(), 0);
+                    StringBuilder v9_10 = new StringBuilder("[");
+                    v9_10.append(v8_1);
+                    v9_10.append("] text: ");
+                    v9_10.append(v1_2);
+                    X3.c.d("MQTT_DEBUG", v9_10.toString(), 0);
+                } else {
+                    kotlin.jvm.internal.Intrinsics.checkNotNull(v0_0);
+                    this.handleAuthorizationNotification(p8, v0_0);
+                    return;
+                }
+            } else {
+                kotlin.jvm.internal.Intrinsics.checkNotNull(v0_0);
+                this.handleParkingNotification(p8, v0_0);
+                return;
+            }
+        } else {
+            kotlin.jvm.internal.Intrinsics.checkNotNull(v0_0);
+            String v8_4 = this.parseProtobuf(v0_0);
+            StringBuilder v9_12 = this.onVehicleStatusUpdate;
+            if (v9_12 != null) {
+                v9_12.invoke(v8_4);
+                return;
+            }
+        }
+        return;
+    }
+
+
+---- handleMessage$lambda$2(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence handleMessage$lambda$2(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02X", "format(...)");
+    }
+
+
+---- handleParkingNotification(Ljava/lang/String; [B)V
+
+    private final void handleParkingNotification(String p10, byte[] p11)
+    {
+        kotlin.text.StringsKt.c0(p10, "/");
+        String v11_6 = kotlin.collections.ArraysKt.z(p11, " ", 0, 0, 0, new W.a(19), 30);
+        try {
+            String v0_6 = new String(p11, kotlin.text.Charsets.UTF_8);
+        } catch (Exception) {
+            v0_6 = "";
+        }
+        Object v3_1 = v0_6;
+        X3.c.d("PARKING_NOTIFY", "=== \u505c\u8f66\u901a\u77e5\u6d88\u606f ===", 0);
+        String v0_9 = new StringBuilder("\u4e3b\u9898: ");
+        v0_9.append(p10);
+        X3.c.d("PARKING_NOTIFY", v0_9.toString(), 0);
+        org.json.JSONObject v10_3 = new StringBuilder("HEX: ");
+        v10_3.append(v11_6);
+        X3.c.d("PARKING_NOTIFY", v10_3.toString(), 0);
+        X3.c.d("PARKING_NOTIFY", "\u6587\u672c: ".concat(v3_1), 0);
+        try {
+            org.json.JSONObject v10_7 = this.parseProtobuf(p11);
+        } catch (String v0_12) {
+            org.json.JSONObject v10_11 = v0_12.getMessage();
+            String v11_11 = new StringBuilder("Protobuf\u89e3\u6790\u5931\u8d25: ");
+            v11_11.append(v10_11);
+            X3.c.f("PARKING_NOTIFY", v11_11.toString());
+        }
+        if (v10_7.isEmpty()) {
+            try {
+                if ((kotlin.text.StringsKt.U(v3_1, "{")) || (kotlin.text.StringsKt.U(v3_1, "["))) {
+                    org.json.JSONObject v10_18 = new org.json.JSONObject(v3_1);
+                    X3.c.d("PARKING_NOTIFY", "JSON\u6570\u636e:", 0);
+                    String v11_13 = v10_18.keys();
+                    kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(v11_13, "keys(...)");
+                    while (v11_13.hasNext()) {
+                        String v0_17 = ((String) v11_13.next());
+                        Object v3_3 = v10_18.get(v0_17);
+                        StringBuilder v6_5 = new StringBuilder();
+                        v6_5.append("  ");
+                        v6_5.append(v0_17);
+                        v6_5.append(": ");
+                        v6_5.append(v3_3);
+                        X3.c.d("PARKING_NOTIFY", v6_5.toString(), 0);
+                    }
+                }
+            } catch (Exception) {
+            }
+            org.json.JSONObject v10_19 = this.onParkingUpdate;
+            if (v10_19 != null) {
+                v10_19.invoke(p11);
+            }
+            return;
+        } else {
+            X3.c.d("PARKING_NOTIFY", "Protobuf\u5b57\u6bb5:", 0);
+            org.json.JSONObject v10_9 = v10_7.entrySet().iterator();
+            while (v10_9.hasNext()) {
+                String v11_2 = ((java.util.Map$Entry) v10_9.next());
+                String v0_4 = ((Number) v11_2.getKey()).intValue();
+                String v11_4 = ((String) v11_2.getValue());
+                StringBuilder v6_1 = new StringBuilder();
+                v6_1.append("  \u5b57\u6bb5");
+                v6_1.append(v0_4);
+                v6_1.append(": ");
+                v6_1.append(v11_4);
+                X3.c.d("PARKING_NOTIFY", v6_1.toString(), 0);
+            }
+        }
+    }
+
+
+---- handleParkingNotification$lambda$3(B)Ljava/lang/CharSequence;
+
+    private static final CharSequence handleParkingNotification$lambda$3(byte p3)
+    {
+        return androidx.datastore.preferences.protobuf.a.p(new Object[] {Byte.valueOf(p3)}), 1, "%02X", "format(...)");
+    }
+
+
+---- parseProtobuf([B)Ljava/util/Map;
+
+    private final java.util.Map parseProtobuf(byte[] p13)
+    {
+        java.util.LinkedHashMap v0_1 = new java.util.LinkedHashMap();
+        int v2_2 = 0;
+        while (v2_2 < p13.length) {
+            int v3_0 = 0;
+            String v4_0 = 0;
+            while (v2_2 < p13.length) {
+                String v5_0 = (v2_2 + 1);
+                int v2_0 = p13[v2_2];
+                v3_0 |= ((v2_0 & 127) << v4_0);
+                v4_0 += 7;
+                if ((v2_0 & 128) != 0) {
+                    v2_2 = v5_0;
+                } else {
+                    v2_2 = v5_0;
+                    break;
+                }
+            }
+            String v4_1 = (v3_0 >> 3);
+            int v3_1 = (v3_0 & 7);
+            if (v3_1 == 0) {
+                String v5_1 = 0;
+                int v3_2 = 0;
+                while (v2_2 < p13.length) {
+                    int v7_1 = (v2_2 + 1);
+                    int v2_3 = p13[v2_2];
+                    v5_1 |= ((((long) (v2_3 & 255)) & 127) << v3_2);
+                    v3_2 += 7;
+                    if ((v2_3 & 128) != 0) {
+                        v2_2 = v7_1;
+                    } else {
+                        v2_2 = v7_1;
+                        break;
+                    }
+                }
+                v0_1.put(Integer.valueOf(v4_1), String.valueOf(v5_1));
+            } else {
+                if (v3_1 == 2) {
+                    if (v2_2 >= p13.length) {
+                        break;
+                    }
+                    int v3_6 = 0;
+                    String v5_3 = 0;
+                    while (v2_2 < p13.length) {
+                        java.nio.charset.Charset v6_3 = (v2_2 + 1);
+                        int v2_5 = p13[v2_2];
+                        v3_6 |= ((v2_5 & 127) << v5_3);
+                        v5_3 += 7;
+                        if ((v2_5 & 128) != 0) {
+                            v2_2 = v6_3;
+                        } else {
+                            v2_2 = v6_3;
+                            break;
+                        }
+                    }
+                    int v3_7 = (v3_6 + v2_2);
+                    if (v3_7 <= p13.length) {
+                        try {
+                            String v5_6 = new String(kotlin.collections.ArraysKt.copyOfRange(p13, v2_2, v3_7), kotlin.text.Charsets.UTF_8);
+                        } catch (Exception) {
+                            v5_6 = "";
+                        }
+                        v0_1.put(Integer.valueOf(v4_1), v5_6);
+                        v2_2 = v3_7;
+                    }
+                } else {
+                    v0_1.put(Integer.valueOf(v4_1), "?");
+                    break;
+                }
+            }
+        }
+        return v0_1;
+    }
+
+
+---- scheduleReconnect()V
+
+    private final void scheduleReconnect()
+    {
+        int v0_0 = this.retryCount;
+        if (v0_0 < this.maxRetries) {
+            this.retryCount = (v0_0 + 1);
+            m4.G.l(this.scope, 0, 0, new com.wuling.app.data.mqtt.VehicleMqttManager$scheduleReconnect$1(Math.min((((long) (1 << v0_0)) * 1000), 30000), this, 0), 3);
+            return;
+        } else {
+            ((p4.M) this._connectionState).i(com.wuling.app.data.mqtt.MqttConnectionState.FAILED);
+            this.shouldReconnect.set(0);
+            return;
+        }
+    }
+
+
+---- subscribeTopics(Ljava/lang/String;)V
+
+    private final void subscribeTopics(String p3)
+    {
+        org.eclipse.paho.client.mqttv3.MqttClient v0 = this.client;
+        try {
+            if ((v0 != null) && (v0.isConnected())) {
+                int[] v1_1 = com.wuling.app.data.mqtt.MqttConfig.INSTANCE;
+                v0.subscribe(v1_1.allTopics(p3), v1_1.getTopicQos());
+            }
+        } catch (Exception) {
+        }
+        return;
+    }
+
+
+---- connectAsync(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+
+    public final void connectAsync(String p8, String p9, String p10)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p8, "clientId");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p9, "username");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p10, "password");
+        this.currentVin = p8;
+        this.currentUsername = p9;
+        this.currentPassword = p10;
+        ((p4.M) this._connectionState).i(com.wuling.app.data.mqtt.MqttConnectionState.CONNECTING);
+        this.shouldReconnect.set(1);
+        this.retryCount = 0;
+        m4.G.l(this.scope, 0, 0, new com.wuling.app.data.mqtt.VehicleMqttManager$connectAsync$1(this, p8, p9, p10, 0), 3);
+        return;
+    }
+
+
+---- connectAsync(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+
+    public final void connectAsync(String p2, String p3, String p4, String p5)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p3, "phoneSuffix");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p4, "username");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p5, "password");
+        this.connectAsync(com.wuling.app.data.mqtt.MqttConfig.INSTANCE.clientId(p2, p3), p4, p5);
+        return;
+    }
+
+
+---- destroy()V
+
+    public final void destroy()
+    {
+        this.disconnect();
+        m4.D.b(this.scope, 0);
+        this.scope = m4.D.a(kotlin.coroutines.CoroutineContext$Element$DefaultImpls.plus(m4.G.c(), t4.d.b));
+        return;
+    }
+
+
+---- disconnect()V
+
+    public final void disconnect()
+    {
+        this.shouldReconnect.set(0);
+        this.retryCount = 0;
+        String v0_6 = this.client;
+    }
+
+
+---- getConnectedVin()Ljava/lang/String;
+
+    public final String getConnectedVin()
+    {
+        return this.currentVin;
+    }
+
+
+---- getConnectionState()Lp4/K;
+
+    public final p4.K getConnectionState()
+    {
+        return this.connectionState;
+    }
+
+
+---- getOnAuthorizationUpdate()Lkotlin/jvm/functions/Function1;
+
+    public final kotlin.jvm.functions.Function1 getOnAuthorizationUpdate()
+    {
+        return this.onAuthorizationUpdate;
+    }
+
+
+---- getOnParkingUpdate()Lkotlin/jvm/functions/Function1;
+
+    public final kotlin.jvm.functions.Function1 getOnParkingUpdate()
+    {
+        return this.onParkingUpdate;
+    }
+
+
+---- getOnVehicleStatusUpdate()Lkotlin/jvm/functions/Function1;
+
+    public final kotlin.jvm.functions.Function1 getOnVehicleStatusUpdate()
+    {
+        return this.onVehicleStatusUpdate;
+    }
+
+
+---- isConnected()Z
+
+    public final boolean isConnected()
+    {
+        boolean v0_0 = this.client;
+        if ((!v0_0) || (v0_0.isConnected() != 1)) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+
+---- setOnAuthorizationUpdate(Lkotlin/jvm/functions/Function1;)V
+
+    public final void setOnAuthorizationUpdate(kotlin.jvm.functions.Function1 p1)
+    {
+        this.onAuthorizationUpdate = p1;
+        return;
+    }
+
+
+---- setOnParkingUpdate(Lkotlin/jvm/functions/Function1;)V
+
+    public final void setOnParkingUpdate(kotlin.jvm.functions.Function1 p1)
+    {
+        this.onParkingUpdate = p1;
+        return;
+    }
+
+
+---- setOnVehicleStatusUpdate(Lkotlin/jvm/functions/Function1;)V
+
+    public final void setOnVehicleStatusUpdate(kotlin.jvm.functions.Function1 p1)
+    {
+        this.onVehicleStatusUpdate = p1;
+        return;
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/data/mqtt/MqttConfig; 父:Ljava/lang/Object;
+==========================================================================================
+
+---- <clinit>()V
+
+    static MqttConfig()
+    {
+        com.wuling.app.data.mqtt.MqttConfig.INSTANCE = new com.wuling.app.data.mqtt.MqttConfig();
+        com.wuling.app.data.mqtt.MqttConfig.topicQos = new int[] {1, 1, 1, 1});
+        com.wuling.app.data.mqtt.MqttConfig.$stable = 8;
+        return;
+    }
+
+
+---- <init>()V
+
+    private MqttConfig()
+    {
+        return;
+    }
+
+
+---- allTopics(Ljava/lang/String;)[Ljava/lang/String;
+
+    public final String[] allTopics(String p4)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p4, "vin");
+        return new String[] {this.topicStatus(p4), this.topicControl(p4), this.topicAuthorize(p4), this.topicParking(p4)});
+    }
+
+
+---- clientId(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+
+    public final String clientId(String p2, String p3)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p3, "phoneSuffix");
+        StringBuilder v0_3 = new StringBuilder();
+        v0_3.append(p2);
+        return B1.b.q(v0_3, "_", p3);
+    }
+
+
+---- getBROKER_URL()Ljava/lang/String;
+
+    public final String getBROKER_URL()
+    {
+        return "tcp://parkingdata.sgmwcloud.com.cn:1883";
+    }
+
+
+---- getTopicQos()[I
+
+    public final int[] getTopicQos()
+    {
+        return com.wuling.app.data.mqtt.MqttConfig.topicQos;
+    }
+
+
+---- topicAuthorize(Ljava/lang/String;)Ljava/lang/String;
+
+    public final String topicAuthorize(String p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        StringBuilder v0_2 = new StringBuilder();
+        v0_2.append(p2);
+        v0_2.append("/prod/sgmw/vehicle/car_check_authorize/business");
+        return v0_2.toString();
+    }
+
+
+---- topicControl(Ljava/lang/String;)Ljava/lang/String;
+
+    public final String topicControl(String p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        StringBuilder v0_2 = new StringBuilder();
+        v0_2.append(p2);
+        v0_2.append("/prod/sgmw/vehicle/control");
+        return v0_2.toString();
+    }
+
+
+---- topicParking(Ljava/lang/String;)Ljava/lang/String;
+
+    public final String topicParking(String p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        StringBuilder v0_2 = new StringBuilder();
+        v0_2.append(p2);
+        v0_2.append("/prod/sgmw/vehicle/car_parking_notify/business");
+        return v0_2.toString();
+    }
+
+
+---- topicStatus(Ljava/lang/String;)Ljava/lang/String;
+
+    public final String topicStatus(String p2)
+    {
+        kotlin.jvm.internal.Intrinsics.checkNotNullParameter(p2, "vin");
+        StringBuilder v0_2 = new StringBuilder();
+        v0_2.append(p2);
+        v0_2.append("/prod/sgmw/vehicle/app/status");
+        return v0_2.toString();
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/service/MqttKeepAliveService; 父:Landroid/app/Service;
+==========================================================================================
+
+---- <init>()V
+
+    public MqttKeepAliveService()
+    {
+        this.c = new Object();
+        this.d = 0;
+        return;
+    }
+
+
+---- a()Ldagger/hilt/android/internal/managers/ServiceComponentManager;
+
+    public final dagger.hilt.android.internal.managers.ServiceComponentManager a()
+    {
+        if (this.b == null) {
+            if (this.b == null) {
+                this.b = new dagger.hilt.android.internal.managers.ServiceComponentManager(this);
+            }
+        }
+        return this.b;
+    }
+
+
+---- componentManager()Ldagger/hilt/internal/GeneratedComponentManager;
+
+    public final bridge synthetic dagger.hilt.internal.GeneratedComponentManager componentManager()
+    {
+        return this.a();
+    }
+
+
+---- generatedComponent()Ljava/lang/Object;
+
+    public final Object generatedComponent()
+    {
+        return this.a().generatedComponent();
+    }
+
+
+---- onBind(Landroid/content/Intent;)Landroid/os/IBinder;
+
+    public final android.os.IBinder onBind(android.content.Intent p1)
+    {
+        return 0;
+    }
+
+
+---- onCreate()V
+
+    public final void onCreate()
+    {
+        if (!this.d) {
+            this.d = 1;
+            ((com.wuling.app.service.MqttKeepAliveService) dagger.hilt.internal.UnsafeCasts.unsafeCast(this)).e = ((com.wuling.app.data.mqtt.VehicleMqttManager) ((com.wuling.app.R0) ((T3.a) this.generatedComponent())).a.g.get());
+        }
+        super.onCreate();
+        return;
+    }
+
+
+---- onStartCommand(Landroid/content/Intent; I I)I
+
+    public final int onStartCommand(android.content.Intent p8, int p9, int p10)
+    {
+        if (p8 != null) {
+            String v10_1 = p8.getStringExtra("client_id");
+            if (v10_1 != null) {
+                String v0_1 = p8.getStringExtra("username");
+                if (v0_1 != null) {
+                    String v8_1 = p8.getStringExtra("password");
+                    if (v8_1 != null) {
+                        com.wuling.app.data.mqtt.VehicleMqttManager v1_1 = this.e;
+                        com.wuling.app.data.mqtt.VehicleMqttManager v2 = 0;
+                        if (v1_1 == null) {
+                            kotlin.jvm.internal.Intrinsics.throwUninitializedPropertyAccessException("mqttManager");
+                            v1_1 = 0;
+                        }
+                        com.wuling.app.data.mqtt.VehicleMqttManager v1_2 = v1_1.getOnVehicleStatusUpdate();
+                        int v4 = this.e;
+                        if (v4 == 0) {
+                            kotlin.jvm.internal.Intrinsics.throwUninitializedPropertyAccessException("mqttManager");
+                            v4 = 0;
+                        }
+                        v4.setOnVehicleStatusUpdate(new C.i(19, this, v1_2));
+                        com.wuling.app.data.mqtt.VehicleMqttManager v1_3 = this.e;
+                        if (v1_3 == null) {
+                            kotlin.jvm.internal.Intrinsics.throwUninitializedPropertyAccessException("mqttManager");
+                            v1_3 = 0;
+                        }
+                        if (!v1_3.isConnected()) {
+                            com.wuling.app.data.mqtt.VehicleMqttManager v1_5 = this.e;
+                            if (v1_5 == null) {
+                                kotlin.jvm.internal.Intrinsics.throwUninitializedPropertyAccessException("mqttManager");
+                            } else {
+                                v2 = v1_5;
+                            }
+                            v2.connectAsync(v10_1, v0_1, v8_1);
+                            this.stopSelf();
+                        } else {
+                            this.stopSelf();
+                            return 2;
+                        }
+                    }
+                }
+            }
+        }
+        return 2;
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/ShortcutHandlerActivity; 父:Lc/l;
+==========================================================================================
+
+---- <init>()V
+
+    public ShortcutHandlerActivity()
+    {
+        return;
+    }
+
+
+---- onCreate(Landroid/os/Bundle;)V
+
+    public final void onCreate(android.os.Bundle p3)
+    {
+        int v3_2;
+        super.onCreate(p3);
+        int v3_1 = this.getIntent();
+        if (v3_1 == 0) {
+            v3_2 = 0;
+        } else {
+            v3_2 = v3_1.getAction();
+        }
+        if (v3_2 != 0) {
+            android.content.Intent v0_0 = new android.content.Intent(this, com.wuling.app.ShortcutCommandService);
+            v0_0.setAction(v3_2);
+            this.startService(v0_0);
+        }
+        this.finish();
+        return;
+    }
+
+
+==========================================================================================
+== Lcom/wuling/app/ShortcutCommandService; 父:Landroid/app/Service;
+==========================================================================================
+
+---- <init>()V
+
+    public ShortcutCommandService()
+    {
+        this.c = new Object();
+        this.d = 0;
+        return;
+    }
+
+
+---- a()Ldagger/hilt/android/internal/managers/ServiceComponentManager;
+
+    public final dagger.hilt.android.internal.managers.ServiceComponentManager a()
+    {
+        if (this.b == null) {
+            if (this.b == null) {
+                this.b = new dagger.hilt.android.internal.managers.ServiceComponentManager(this);
+            }
+        }
+        return this.b;
+    }
+
+
+---- b()LP3/N;
+
+    public final P3.N b()
+    {
+        int v0_0 = this.e;
+        if (v0_0 == 0) {
+            kotlin.jvm.internal.Intrinsics.throwUninitializedPropertyAccessException("vehicleRepository");
+            return 0;
+        } else {
+            return v0_0;
+        }
+    }
+
+
+---- componentManager()Ldagger/hilt/internal/GeneratedComponentManager;
+
+    public final bridge synthetic dagger.hilt.internal.GeneratedComponentManager componentManager()
+    {
+        return this.a();
+    }
+
+
+---- generatedComponent()Ljava/lang/Object;
+
+    public final Object generatedComponent()
+    {
+        return this.a().generatedComponent();
+    }
+
+
+---- onBind(Landroid/content/Intent;)Landroid/os/IBinder;
+
+    public final android.os.IBinder onBind(android.content.Intent p1)
+    {
+        return 0;
+    }
+
+
+---- onCreate()V
+
+    public final void onCreate()
+    {
+        if (!this.d) {
+            this.d = 1;
+            com.wuling.app.ShortcutCommandService v1_1 = ((com.wuling.app.ShortcutCommandService) dagger.hilt.internal.UnsafeCasts.unsafeCast(this));
+            Q3.j v0_2 = ((com.wuling.app.R0) ((com.wuling.app.u1) this.generatedComponent())).a;
+            v1_1.e = ((P3.N) v0_2.c.get());
+            v1_1.f = ((Q3.j) v0_2.d.get());
+        }
+        super.onCreate();
+        return;
+    }
+
+
+---- onStartCommand(Landroid/content/Intent; I I)I
+
+    public final int onStartCommand(android.content.Intent p4, int p5, int p6)
+    {
+        if (p4 != 0) {
+            int v4_2 = p4.getAction();
+            if (v4_2 != 0) {
+                m4.G.l(m4.D.a(kotlin.coroutines.CoroutineContext$Element$DefaultImpls.plus(m4.G.c(), t4.d.b)), 0, 0, new com.wuling.app.t1(this, p6, v4_2, 0), 3);
+                return 2;
+            }
+        }
+        this.stopSelf(p6);
+        return 2;
+    }
+

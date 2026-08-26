@@ -1,0 +1,4 @@
+-keep class com.fiftycar.app.data.** { *; }
+-keep class org.eclipse.paho.** { *; }
+-dontwarn org.eclipse.paho.**
+-keepattributes *Annotation*,Signature,EnclosingMethod,InnerClasses

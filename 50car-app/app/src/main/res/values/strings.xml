@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">50Car 车控</string>
+    <string name="widget_name">快捷控车</string>
+    <string name="channel_keep_alive">车联连接保活</string>
+    <string name="channel_car_alert">车辆提醒</string>
+</resources>
