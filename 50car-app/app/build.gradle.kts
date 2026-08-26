@@ -10,6 +10,22 @@ android {
     namespace = "com.fiftycar.app"
     compileSdk = 36   // Android 16
 
+        // 发布签名:读取不入库的 signing.properties(参考 signing.properties.example)
+    val signingProps = java.util.Properties().apply {
+        val f = rootProject.file("signing.properties")
+        if (f.exists()) f.inputStream().use { load(it) }
+    }
+    signingConfigs {
+        create("release") {
+            if (signingProps.isEmpty.not()) {
+                storeFile = rootProject.file(signingProps.getProperty("storeFile", ""))
+                storePassword = signingProps.getProperty("storePassword", "")
+                keyAlias = signingProps.getProperty("keyAlias", "")
+                keyPassword = signingProps.getProperty("keyPassword", "")
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "com.fiftycar.app"
         minSdk = 26          // Android 8.0+,与原 50car 一致
@@ -21,6 +37,7 @@ android {
 
     buildTypes {
         release {
+            if (signingProps.isEmpty.not()) signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

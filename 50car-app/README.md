@@ -68,3 +68,17 @@ app/src/main/java/com/fiftycar/app/
 2. `8c5a7a…` 等原分析中出现的签名密钥为其官方协议实现细节,**本工程一律不收录**。
 3. 若要真实控车:使用你自己车辆的账号 Token(用户自行登录获得),或接入自有后端;
    由此产生的账号风险由使用者自负(参考原 APP 协议风险提示)。
+
+## 发布签名(生成你自己的 keystore 并打包)
+
+```bash
+# 1. 生成签名密钥(只需一次)
+mkdir -p keystore
+keytool -genkey -v -keystore keystore/50car-release.jks \
+  -keyalg RSA -keysize 2048 -validity 10950 -alias 50car
+
+# 2. 复制 signing.properties.example 为 signing.properties 并填密码
+
+# 3. 打包发布版(自动使用签名)
+./gradlew assembleRelease   # 产出 app-release.apk
+```
